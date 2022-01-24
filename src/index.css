@@ -1,3 +1,10 @@
+:root {
+  --primary-gray: #1F2428;
+  --secondary-gray: #4D5863;
+  --medium-gray: #31383F;
+  --purple: #9D75CB;
+}
+
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;

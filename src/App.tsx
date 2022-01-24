@@ -1,10 +1,13 @@
 import React from 'react';
+import { EditorContextProvider } from './context/editor-context';
 
 import { Router } from './router';
 
 function App() {
   return (
-    <Router />
+    <EditorContextProvider>
+      <Router />
+    </EditorContextProvider>
   );
 }
 
