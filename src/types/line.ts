@@ -1,5 +1,8 @@
+export type BlockTypes = 'h1' | 'h2' | 'h3' | 't' | 'b' | 'i' | 'code' | 'table' | 'list-enum' | 'list-bullet' | 'link' | 'checkbox'
+
 export type Line = {
-  text: string;
-  type: 'h1' | 'h2' | 'h3' | 't' | 'b' | 'i' | 'code' | 'table' | 'list-enum' | 'list-bullet'
+  content: string;
+  type: BlockTypes
   isEditing: boolean
+  uuid: string
 }
