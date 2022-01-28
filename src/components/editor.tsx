@@ -18,6 +18,8 @@ const EditorWrapper = styled.div`
 export function Editor(){
   const { content } = useEditor()
 
+  console.log(content)
+
   return (
     <EditorWrapper>
       {content.map(line => <LineBlock line={line} key={line.uuid} />)}

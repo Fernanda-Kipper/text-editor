@@ -23,6 +23,7 @@ type EditorContextType = {
   updateLineBlockValue(oldLine: Line, newValue: string): void
   isPreviewMode: boolean
   updateIsEditingByUUID(uuid: string): void
+  deleteLineBlockByUUID(uuid: string): void
 }
 
 interface Props {
@@ -60,6 +61,11 @@ export function EditorContextProvider({ children }: Props){
       return {...line, isEditing: false }
     })
 
+    setContent(newContent)
+  }
+
+  const deleteLineBlockByUUID = (uuid: string) => {
+    const newContent = content.filter(line => line.uuid !== uuid)
     setContent(newContent)
   }
 
@@ -126,9 +132,10 @@ export function EditorContextProvider({ children }: Props){
       handlePreview: () => setIsPreviewMode(!isPreviewMode),
       content,
       setContent,
-      updateLineBlockValue: updateLineBlockValue,
+      updateLineBlockValue,
       isPreviewMode,
-      updateIsEditingByUUID}}
+      updateIsEditingByUUID,
+      deleteLineBlockByUUID}}
     >
       {children}
     </EditorContext.Provider>
