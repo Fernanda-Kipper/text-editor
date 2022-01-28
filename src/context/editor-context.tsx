@@ -80,15 +80,15 @@ export function EditorContextProvider({ children }: Props){
   }
 
   const addBold = () => {
-    addLineBlock('b', 'bold')
+    addLineBlock('b', '')
   }
 
   const addItalic = () => {
-    addLineBlock('i', 'italic')
+    addLineBlock('i', '')
   }
 
   const addCode = () => {
-    addLineBlock('code', 'write your code here')
+    addLineBlock('code', '')
   }
 
   const addListEnum = () => {
