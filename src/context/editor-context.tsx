@@ -20,7 +20,7 @@ type EditorContextType = {
   exportFile(): void
   content: Line[]
   setContent(value: Line[]): void
-  updateLineValue(oldLine: Line, newValue: string): void
+  updateLineBlockValue(oldLine: Line, newValue: string): void
   isPreviewMode: boolean
   updateIsEditingByUUID(uuid: string): void
 }
@@ -37,24 +37,22 @@ export function EditorContextProvider({ children }: Props){
     { isEditing: true, content: 'Type your text here', type: "h1", uuid: uuidv4() }
   ])
 
-  const updateLineValue = (oldLine: Line, newValue: string) => {
+  const updateLineBlockValue = (currentLine: Line, newValue: string) => {
     const newContent = content.map(line => {
-      if(line.uuid !== oldLine.uuid) return line
+      if(line.uuid !== currentLine.uuid) return line
       return { ...line, content: newValue }
     })
 
     setContent(newContent)
   }
 
-  const addLine = (type: BlockTypes, lineContent: string) => {
+  const addLineBlock = (type: BlockTypes, lineContent: string) => {
     const allDisabled = content.map(line => ({ ...line, isEditing: false }))
     const newLineContent = LinesPrefixe[type] + lineContent + LinesSufixe[type]
     const newLine = { type, content: newLineContent, isEditing: true, uuid: uuidv4() }
 
     setContent([...allDisabled, newLine])
   }
-
-  console.log(content)
 
   const updateIsEditingByUUID = (uuid: string) => {
     const newContent = content.map(line => {
@@ -66,47 +64,47 @@ export function EditorContextProvider({ children }: Props){
   }
 
   const addHeading1 = () => {
-    addLine('h1', '')
+    addLineBlock('h1', '')
   }
 
   const addHeading2 = () => {
-    addLine('h2', '')
+    addLineBlock('h2', '')
   }
 
   const addHeading3 = () => {
-    addLine('h3', '')
+    addLineBlock('h3', '')
   }
 
   const addText = () => {
-    addLine('t', '')
+    addLineBlock('t', '')
   }
 
   const addBold = () => {
-    addLine('b', 'bold')
+    addLineBlock('b', 'bold')
   }
 
   const addItalic = () => {
-    addLine('i', 'italic')
+    addLineBlock('i', 'italic')
   }
 
   const addCode = () => {
-    addLine('code', 'write your code here')
+    addLineBlock('code', 'write your code here')
   }
 
   const addListEnum = () => {
-    addLine('list-enum', '')
+    addLineBlock('list-enum', '')
   }
 
   const addListBullet = () => {
-    addLine('list-bullet', '')
+    addLineBlock('list-bullet', '')
   }
 
   const addLink = () => {
-    addLine('link', '[Link Name](url)')
+    addLineBlock('link', '[Link Name](url)')
   }
 
   const addCheckbox = () => {
-    addLine('checkbox', '')
+    addLineBlock('checkbox', '')
   }
   
   const exportFile = () => {}
@@ -128,7 +126,7 @@ export function EditorContextProvider({ children }: Props){
       handlePreview: () => setIsPreviewMode(!isPreviewMode),
       content,
       setContent,
-      updateLineValue,
+      updateLineBlockValue: updateLineBlockValue,
       isPreviewMode,
       updateIsEditingByUUID}}
     >

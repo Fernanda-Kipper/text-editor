@@ -41,7 +41,7 @@ const StyledLine = styled.div<{ isEditing: boolean}>`
 `
 
 export function LineBlock({ line }: Props){
-  const { updateLineValue, addText, updateIsEditingByUUID } = useEditor()
+  const { updateLineBlockValue: updateLineValue, addText, updateIsEditingByUUID } = useEditor()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const increaseTextareaSize = () => {
@@ -72,9 +72,8 @@ export function LineBlock({ line }: Props){
           ref={textareaRef} 
           onInput={onTextareaChange}
           onKeyPress={handleEnter as unknown as KeyboardEventHandler}
-        >
-          {line.content}
-        </textarea>
+          value={line.content}
+        />
       </When>
       <When expr={LinesMaxLength[line.type]}>
         <input 

@@ -20,7 +20,7 @@ export function Editor(){
 
   return (
     <EditorWrapper>
-      {content.map(line => <LineBlock line={line}/>)}
+      {content.map(line => <LineBlock line={line} key={line.uuid} />)}
     </EditorWrapper>
   )
 }
