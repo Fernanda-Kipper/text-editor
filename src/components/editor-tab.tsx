@@ -5,7 +5,7 @@ import { IoMdCheckboxOutline, IoMdLink } from 'react-icons/io'
 import { VscListOrdered, VscListUnordered } from 'react-icons/vsc'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
-import { useEditor } from "../hooks/useEditor"
+import { useEditorTab } from "../hooks/useEditorTab"
 
 const Tab = styled.div`
   position: fixed;
@@ -76,6 +76,7 @@ interface Props {
 
 export function EditorTab({ isPreview = false }: Props){
   const push = useNavigate()
+
   const {
     addBold, 
     addCode, 
@@ -83,12 +84,12 @@ export function EditorTab({ isPreview = false }: Props){
     addHeading2, 
     addHeading3, 
     addItalic, 
-    addText, 
-    exportFile,
+    addText,
     addCheckbox,
     addLink,
     addListBullet,
-    addListEnum } = useEditor()
+    addListEnum,
+    exportFile } = useEditorTab()
 
   const handlePreview = () => {
     push('/preview')

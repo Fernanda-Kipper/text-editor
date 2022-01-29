@@ -1,7 +1,7 @@
 import { ChangeEvent, useRef, KeyboardEventHandler } from "react";
 import styled from "styled-components";
 import { LinesMaxLength } from "../constants/lines";
-import { useEditor } from "../hooks/useEditor";
+import { useEditorContext } from "../hooks/useEditorContext";
 import { Line } from "../types/line";
 import { When } from "./when";
 import { AiOutlineDelete } from "react-icons/ai"
@@ -54,7 +54,7 @@ const StyledLine = styled.div<{ isEditing: boolean}>`
 `
 
 export function LineBlock({ line }: Props){
-  const { updateLineBlockValue, addText, updateIsEditingByUUID, deleteLineBlockByUUID } = useEditor()
+  const { updateLineBlockValue, updateIsEditingByUUID, deleteLineBlockByUUID, addBrotherLineBlock } = useEditorContext()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const increaseTextareaSize = () => {
@@ -71,7 +71,7 @@ export function LineBlock({ line }: Props){
 
   const handleEnter = (event: KeyboardEvent) => {
     if(event.code !== 'Enter') return
-    addText()
+    addBrotherLineBlock()
   }
 
   const handleEditMode = () => updateIsEditingByUUID(line.uuid)

@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { EditorTab } from "../components/editor-tab"
 import { PageWrapper } from "../components/page-wrapper"
 
-import { useEditor } from "../hooks/useEditor"
+import { useEditorContext } from "../hooks/useEditorContext"
 
 const PreviewFile = styled.div`
   display: flex;
@@ -30,7 +30,7 @@ const PreviewFile = styled.div`
 `
 
 export default function PreviewPage(){
-  const { content } = useEditor()
+  const { content } = useEditorContext()
   return(
     <PageWrapper justify="flex-start">
       <EditorTab isPreview/>

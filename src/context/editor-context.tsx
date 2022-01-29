@@ -5,23 +5,14 @@ import { LinesPrefixe, LinesSufixe } from "../constants/lines";
 import { BlockTypes, Line } from "../types/line";
 
 type EditorContextType = {
-  addHeading1(): void
-  addHeading2(): void
-  addHeading3(): void
-  addText(): void
-  addBold(): void
-  addItalic(): void
-  addCode(): void
-  addListEnum(): void
-  addListBullet(): void
-  addCheckbox(): void
-  addLink(): void
   exportFile(): void
   content: Line[]
   setContent(value: Line[]): void
   updateLineBlockValue(oldLine: Line, newValue: string): void
   updateIsEditingByUUID(uuid: string): void
   deleteLineBlockByUUID(uuid: string): void
+  addEmptyIsEditingLine(type: BlockTypes): void
+  addBrotherLineBlock(): void
 }
 
 interface Props {
@@ -30,10 +21,10 @@ interface Props {
 
 export const EditorContext = createContext({} as EditorContextType)
 
+const defaultText = { isEditing: true, content: '# Type your text here', type: BlockTypes.h1, uuid: uuidv4() }
+
 export function EditorContextProvider({ children }: Props){
-  const [content, setContent] = useState<Line[]>([
-    { isEditing: true, content: 'Type your text here', type: "h1", uuid: uuidv4() }
-  ])
+  const [content, setContent] = useState<Line[]>([defaultText])
 
   const updateLineBlockValue = (currentLine: Line, newValue: string) => {
     const newContent = content.map(line => {
@@ -44,13 +35,30 @@ export function EditorContextProvider({ children }: Props){
     setContent(newContent)
   }
 
-  const addLineBlock = (type: BlockTypes, lineContent: string) => {
+  const addLineBlock = (oldContent: Line[], newLine: Line) => {
+    setContent([...oldContent, newLine])
+  }
+
+  const disableAllIsEditing = (content: Line[]) => {
     const allDisabled = content.map(line => ({ ...line, isEditing: false }))
-    const newLineContent = LinesPrefixe[type] + lineContent + LinesSufixe[type]
+    return allDisabled
+  }
+
+  const addEmptyIsEditingLine = (type: BlockTypes) => {
+    const allDisabled = disableAllIsEditing(content)
+    const newLineContent = LinesPrefixe[type] + LinesSufixe[type]
     const newLine = { type, content: newLineContent, isEditing: true, uuid: uuidv4() }
 
-    setContent([...allDisabled, newLine])
+    addLineBlock(allDisabled, newLine)
   }
+
+  const addBrotherLineBlock = () => {
+    const lastLineBlock = content[content.length -1]
+    const newLineContent = LinesPrefixe[lastLineBlock.type] + LinesSufixe[lastLineBlock.type]
+    const allDisabled = disableAllIsEditing(content)
+
+    addLineBlock(allDisabled, { ...lastLineBlock, content: newLineContent, uuid: uuidv4() })    
+  } 
 
   const updateIsEditingByUUID = (uuid: string) => {
     const newContent = content.map(line => {
@@ -65,72 +73,19 @@ export function EditorContextProvider({ children }: Props){
     const newContent = content.filter(line => line.uuid !== uuid)
     setContent(newContent)
   }
-
-  const addHeading1 = () => {
-    addLineBlock('h1', '')
-  }
-
-  const addHeading2 = () => {
-    addLineBlock('h2', '')
-  }
-
-  const addHeading3 = () => {
-    addLineBlock('h3', '')
-  }
-
-  const addText = () => {
-    addLineBlock('t', '')
-  }
-
-  const addBold = () => {
-    addLineBlock('b', '')
-  }
-
-  const addItalic = () => {
-    addLineBlock('i', '')
-  }
-
-  const addCode = () => {
-    addLineBlock('code', '')
-  }
-
-  const addListEnum = () => {
-    addLineBlock('list-enum', '')
-  }
-
-  const addListBullet = () => {
-    addLineBlock('list-bullet', '')
-  }
-
-  const addLink = () => {
-    addLineBlock('link', '[Link Name](url)')
-  }
-
-  const addCheckbox = () => {
-    addLineBlock('checkbox', '')
-  }
   
   const exportFile = () => {}
 
   return(
     <EditorContext.Provider value={{
-      addBold, 
-      addCode, 
-      addHeading1, 
-      addHeading2, 
-      addHeading3, 
-      addItalic, 
-      addText,
-      addCheckbox,
-      addLink,
-      addListBullet,
-      addListEnum,
       exportFile, 
       content,
       setContent,
       updateLineBlockValue,
       updateIsEditingByUUID,
-      deleteLineBlockByUUID}}
+      deleteLineBlockByUUID,
+      addEmptyIsEditingLine,
+      addBrotherLineBlock}}
     >
       {children}
     </EditorContext.Provider>

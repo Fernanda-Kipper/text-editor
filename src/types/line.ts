@@ -1,4 +1,17 @@
-export type BlockTypes = 'h1' | 'h2' | 'h3' | 't' | 'b' | 'i' | 'code' | 'table' | 'list-enum' | 'list-bullet' | 'link' | 'checkbox'
+export enum BlockTypes { 
+  'h1' = "H1",
+  'h2' = "H2",
+  'h3' = "H3",
+  't' = "T",
+  'b' = "B",
+  'i' = "I",
+  'code' = "CODE",
+  'table' = "TABLE",
+  'list-enum' = "LIST-ENUM",
+  'list-bullet' = "LIST-BULLET",
+  'link' = "LINK",
+  'checkbox' = "CHECKBOX"
+}
 
 export type Line = {
   content: string;

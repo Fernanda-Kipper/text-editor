@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-import { useEditor } from "../hooks/useEditor"
+import { useEditorContext } from "../hooks/useEditorContext"
 import { LineBlock } from "./line-block"
 
 const EditorWrapper = styled.div`
@@ -16,9 +16,7 @@ const EditorWrapper = styled.div`
 `
 
 export function Editor(){
-  const { content } = useEditor()
-
-  console.log(content)
+  const { content } = useEditorContext()
 
   return (
     <EditorWrapper>
