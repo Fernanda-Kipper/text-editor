@@ -54,7 +54,7 @@ const StyledLine = styled.div<{ isEditing: boolean}>`
 `
 
 export function LineBlock({ line }: Props){
-  const { updateLineBlockValue, updateIsEditingByUUID, deleteLineBlockByUUID, addBrotherLineBlock } = useEditorContext()
+  const { updateLineBlockValue, updateLineBlockEditByUUID, deleteLineBlockByUUID, duplicateLastLineBlock } = useEditorContext()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const increaseTextareaSize = () => {
@@ -71,10 +71,10 @@ export function LineBlock({ line }: Props){
 
   const handleEnter = (event: KeyboardEvent) => {
     if(event.code !== 'Enter') return
-    addBrotherLineBlock()
+    duplicateLastLineBlock()
   }
 
-  const handleEditMode = () => updateIsEditingByUUID(line.uuid)
+  const handleEditMode = () => updateLineBlockEditByUUID(line.uuid)
   const handleDelete = () => deleteLineBlockByUUID(line.uuid)
 
   return(

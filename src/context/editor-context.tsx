@@ -6,13 +6,12 @@ import { BlockTypes, Line } from "../types/line";
 
 type EditorContextType = {
   exportFile(): void
-  content: Line[]
-  setContent(value: Line[]): void
+  editorContent: Line[]
   updateLineBlockValue(oldLine: Line, newValue: string): void
-  updateIsEditingByUUID(uuid: string): void
+  updateLineBlockEditByUUID(uuid: string): void
   deleteLineBlockByUUID(uuid: string): void
-  addEmptyIsEditingLine(type: BlockTypes): void
-  addBrotherLineBlock(): void
+  addEditingLineBlockByType(type: BlockTypes): void
+  duplicateLastLineBlock(): void
 }
 
 interface Props {
@@ -24,19 +23,19 @@ export const EditorContext = createContext({} as EditorContextType)
 const defaultText = { isEditing: true, content: '# Type your text here', type: BlockTypes.h1, uuid: uuidv4() }
 
 export function EditorContextProvider({ children }: Props){
-  const [content, setContent] = useState<Line[]>([defaultText])
+  const [editorContent, setEditorContent] = useState<Line[]>([defaultText])
 
   const updateLineBlockValue = (currentLine: Line, newValue: string) => {
-    const newContent = content.map(line => {
+    const newContent = editorContent.map(line => {
       if(line.uuid !== currentLine.uuid) return line
       return { ...line, content: newValue }
     })
 
-    setContent(newContent)
+    setEditorContent(newContent)
   }
 
   const addLineBlock = (oldContent: Line[], newLine: Line) => {
-    setContent([...oldContent, newLine])
+    setEditorContent([...oldContent, newLine])
   }
 
   const disableAllIsEditing = (content: Line[]) => {
@@ -44,34 +43,34 @@ export function EditorContextProvider({ children }: Props){
     return allDisabled
   }
 
-  const addEmptyIsEditingLine = (type: BlockTypes) => {
-    const allDisabled = disableAllIsEditing(content)
+  const addEditingLineBlockByType = (type: BlockTypes) => {
+    const allDisabled = disableAllIsEditing(editorContent)
     const newLineContent = LinesPrefixe[type] + LinesSufixe[type]
     const newLine = { type, content: newLineContent, isEditing: true, uuid: uuidv4() }
 
     addLineBlock(allDisabled, newLine)
   }
 
-  const addBrotherLineBlock = () => {
-    const lastLineBlock = content[content.length -1]
+  const duplicateLastLineBlock = () => {
+    const lastLineBlock = editorContent[editorContent.length -1]
     const newLineContent = LinesPrefixe[lastLineBlock.type] + LinesSufixe[lastLineBlock.type]
-    const allDisabled = disableAllIsEditing(content)
+    const allDisabled = disableAllIsEditing(editorContent)
 
     addLineBlock(allDisabled, { ...lastLineBlock, content: newLineContent, uuid: uuidv4() })    
   } 
 
-  const updateIsEditingByUUID = (uuid: string) => {
-    const newContent = content.map(line => {
+  const updateLineBlockEditByUUID = (uuid: string) => {
+    const newContent = editorContent.map(line => {
       if(line.uuid === uuid) return {...line, isEditing: true }
       return {...line, isEditing: false }
     })
 
-    setContent(newContent)
+    setEditorContent(newContent)
   }
 
   const deleteLineBlockByUUID = (uuid: string) => {
-    const newContent = content.filter(line => line.uuid !== uuid)
-    setContent(newContent)
+    const newContent = editorContent.filter(line => line.uuid !== uuid)
+    setEditorContent(newContent)
   }
   
   const exportFile = () => {}
@@ -79,13 +78,12 @@ export function EditorContextProvider({ children }: Props){
   return(
     <EditorContext.Provider value={{
       exportFile, 
-      content,
-      setContent,
+      editorContent,
       updateLineBlockValue,
-      updateIsEditingByUUID,
+      updateLineBlockEditByUUID,
       deleteLineBlockByUUID,
-      addEmptyIsEditingLine,
-      addBrotherLineBlock}}
+      addEditingLineBlockByType,
+      duplicateLastLineBlock}}
     >
       {children}
     </EditorContext.Provider>
