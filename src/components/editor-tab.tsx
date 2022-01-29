@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import { CgExport, CgEye  } from 'react-icons/cg'
+import { CgExport  } from 'react-icons/cg'
 import { IoMdCheckboxOutline, IoMdLink } from 'react-icons/io'
 import { VscListOrdered, VscListUnordered } from 'react-icons/vsc'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+
 import { useEditor } from "../hooks/useEditor"
 
 const Tab = styled.div`
@@ -67,8 +70,13 @@ const Tab = styled.div`
   }
 `
 
-export function EditorTab(){
-  const { 
+interface Props {
+  isPreview?: boolean
+}
+
+export function EditorTab({ isPreview = false }: Props){
+  const push = useNavigate()
+  const {
     addBold, 
     addCode, 
     addHeading1,
@@ -76,12 +84,29 @@ export function EditorTab(){
     addHeading3, 
     addItalic, 
     addText, 
-    exportFile, 
-    handlePreview,
+    exportFile,
     addCheckbox,
     addLink,
     addListBullet,
     addListEnum } = useEditor()
+
+  const handlePreview = () => {
+    push('/preview')
+  }
+
+  const handleEdit = () => {
+    push('/editor')
+  }
+
+  if (isPreview) return (
+    <Tab>
+      <p>Preview mode</p>
+      <div>
+        <AiOutlineEyeInvisible onClick={handleEdit} />
+        <CgExport onClick={exportFile} />
+      </div>
+    </Tab>
+  )
 
   return(
     <Tab>
@@ -99,7 +124,7 @@ export function EditorTab(){
         <IoMdLink onClick={addLink} />
       </div>
       <div>
-        <CgEye onClick={handlePreview} />
+        <AiOutlineEye onClick={handlePreview} />
         <CgExport onClick={exportFile} />
       </div>
     </Tab>

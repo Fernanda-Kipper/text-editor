@@ -16,12 +16,10 @@ type EditorContextType = {
   addListBullet(): void
   addCheckbox(): void
   addLink(): void
-  handlePreview(): void
   exportFile(): void
   content: Line[]
   setContent(value: Line[]): void
   updateLineBlockValue(oldLine: Line, newValue: string): void
-  isPreviewMode: boolean
   updateIsEditingByUUID(uuid: string): void
   deleteLineBlockByUUID(uuid: string): void
 }
@@ -33,7 +31,6 @@ interface Props {
 export const EditorContext = createContext({} as EditorContextType)
 
 export function EditorContextProvider({ children }: Props){
-  const [isPreviewMode, setIsPreviewMode] = useState(false)
   const [content, setContent] = useState<Line[]>([
     { isEditing: true, content: 'Type your text here', type: "h1", uuid: uuidv4() }
   ])
@@ -129,11 +126,9 @@ export function EditorContextProvider({ children }: Props){
       addListBullet,
       addListEnum,
       exportFile, 
-      handlePreview: () => setIsPreviewMode(!isPreviewMode),
       content,
       setContent,
       updateLineBlockValue,
-      isPreviewMode,
       updateIsEditingByUUID,
       deleteLineBlockByUUID}}
     >
