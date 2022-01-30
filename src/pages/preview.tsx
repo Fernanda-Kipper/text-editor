@@ -12,6 +12,8 @@ const PreviewFile = styled.div`
   justify-content: flex-start;
   gap: 8px;
 
+  width: 80%;
+
   align-self: flex-start;
   justify-self: flex-start !important;
   padding: 32px;
@@ -26,7 +28,6 @@ const PreviewFile = styled.div`
     font-size: 14px;
     border-radius: 8px;
   }
-  
 `
 
 export default function PreviewPage(){

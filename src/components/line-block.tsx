@@ -17,7 +17,7 @@ const StyledLine = styled.div<{ isEditing: boolean}>`
   background-color: ${props => props.isEditing ? 'rgba(77, 88, 99, 0.2)' : 'transparent'}; 
   padding: 8px;
   height: auto;
-  width: 70%;
+  width: 80%;
   margin: 4px auto;
   border-radius: 8px;
   font-family: 'Roboto mono', sans-serif;
