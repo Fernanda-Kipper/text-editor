@@ -16,11 +16,11 @@ const EditorWrapper = styled.div`
 `
 
 export function Editor(){
-  const { content } = useEditorContext()
+  const { editorContent } = useEditorContext()
 
   return (
     <EditorWrapper>
-      {content.map(line => <LineBlock line={line} key={line.uuid} />)}
+      {editorContent.map(line => <LineBlock line={line} key={line.uuid} />)}
     </EditorWrapper>
   )
 }

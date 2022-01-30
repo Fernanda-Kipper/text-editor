@@ -30,12 +30,12 @@ const PreviewFile = styled.div`
 `
 
 export default function PreviewPage(){
-  const { content } = useEditorContext()
+  const { editorContent } = useEditorContext()
   return(
     <PageWrapper justify="flex-start">
       <EditorTab isPreview/>
       <PreviewFile>
-        {content.map(line => <Markdown >{line.content}</Markdown>)}
+        {editorContent.map(line => <Markdown >{line.content}</Markdown>)}
       </PreviewFile>
     </PageWrapper>
   )
