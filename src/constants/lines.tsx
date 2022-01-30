@@ -24,7 +24,7 @@ export const LinesPrefixe = {
   'TABLE': '',
   'LIST-ENUM': '1. ',
   'LIST-BULLET': '- ',
-  'LINK': '',
+  'LINK': '[Name](url)',
   'CHECKBOX': '-[ ] '
 }
 
