@@ -6,7 +6,7 @@ import { Line } from "../types/line";
 import { When } from "./when";
 import { AiOutlineDelete } from "react-icons/ai"
 
-const INITIAL_HEIGHT = 28
+const INITIAL_LINE_HEIGHT = 28
 
 interface Props {
   line: Line
@@ -17,25 +17,32 @@ const StyledLine = styled.div<{ isEditing: boolean}>`
   background-color: ${props => props.isEditing ? 'rgba(77, 88, 99, 0.2)' : 'transparent'}; 
   padding: 8px;
   height: auto;
-  width: 95%;
-  margin: 0 auto;
+  width: 70%;
+  margin: 4px auto;
   border-radius: 8px;
   font-family: 'Roboto mono', sans-serif;
   position: relative;
-
-  #delete-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: ${props => props.isEditing ? 'block' : 'none'}; 
-    color: rgba(77, 88, 99, 0.9);
-    font-size: 20px;
-    margin: 4px;
-    cursor: pointer;
+  
+  &:hover {
+    background-color: ${props => props.isEditing ? 'rgba(77, 88, 99, 0.2)' : 'rgba(77, 88, 99, 0.05)'};
+    cursor: ${props => props.isEditing ? 'inherit' :'pointer'}; 
   }
 
-  textarea, input{
-    height: ${INITIAL_HEIGHT}px;
+  .line-control {
+    #delete-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: ${props => props.isEditing ? 'block' : 'none'}; 
+      color: rgba(77, 88, 99, 0.9);
+      font-size: 20px;
+      margin: 4px;
+      cursor: pointer;
+    }
+  }
+
+  textarea, input {
+    height: ${INITIAL_LINE_HEIGHT}px;
     overflow-y: hidden;
     width: 100%;
     resize: none;
@@ -57,15 +64,15 @@ export function LineBlock({ line }: Props){
   const { updateLineBlockValue, updateLineBlockEditByUUID, deleteLineBlockByUUID, duplicateLastLineBlock } = useEditorContext()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  const increaseTextareaSize = () => {
+  const increaseTextareaHeight = () => {
     if(!textareaRef.current) return
 
-    textareaRef.current.style.height = INITIAL_HEIGHT + 'px'
+    textareaRef.current.style.height = INITIAL_LINE_HEIGHT + 'px'
     textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px'
   }
 
   const onTextareaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    increaseTextareaSize()
+    increaseTextareaHeight()
     updateLineBlockValue(line, event?.target?.value)
   }
 
@@ -79,8 +86,9 @@ export function LineBlock({ line }: Props){
 
   return(
     <StyledLine isEditing={line.isEditing}>
-      <AiOutlineDelete onClick={handleDelete} id="delete-btn"/>
-      <div className="line-control"></div>
+      <div className="line-control">
+        <AiOutlineDelete onClick={handleDelete} id="delete-btn"/>
+      </div>
       <When expr={!LinesMaxLength[line.type]}>
         <textarea
           onClick={handleEditMode}
