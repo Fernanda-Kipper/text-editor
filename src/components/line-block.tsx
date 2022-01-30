@@ -64,16 +64,16 @@ export function LineBlock({ line }: Props){
   const { updateLineBlockValue, updateLineBlockEditByUUID, deleteLineBlockByUUID, duplicateLastLineBlock } = useEditorContext()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
+  const onTextareaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    increaseTextareaHeight()
+    updateLineBlockValue(line, event?.target?.value)
+  }
+
   const increaseTextareaHeight = () => {
     if(!textareaRef.current) return
 
     textareaRef.current.style.height = INITIAL_LINE_HEIGHT + 'px'
     textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px'
-  }
-
-  const onTextareaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    increaseTextareaHeight()
-    updateLineBlockValue(line, event?.target?.value)
   }
 
   const handleEnter = (event: KeyboardEvent) => {
