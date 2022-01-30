@@ -12,7 +12,7 @@ interface Props {
   line: Line
 }
 
-const StyledLine = styled.div<{ isEditing: boolean}>`
+const StyledLine = styled.div<{ isEditing: boolean, initialHeight: number}>`
   color: white;
   background-color: ${props => props.isEditing ? 'rgba(77, 88, 99, 0.2)' : 'transparent'}; 
   padding: 8px;
@@ -42,7 +42,7 @@ const StyledLine = styled.div<{ isEditing: boolean}>`
   }
 
   textarea, input {
-    height: ${INITIAL_LINE_HEIGHT}px;
+    height: ${props => props.initialHeight}px;
     overflow-y: hidden;
     width: 100%;
     resize: none;
@@ -64,14 +64,16 @@ export function LineBlock({ line }: Props){
   const { updateLineBlockValue, updateLineBlockEditByUUID, deleteLineBlockByUUID, duplicateLastLineBlock } = useEditorContext()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
+  const initialHeight = INITIAL_LINE_HEIGHT * ( Math.ceil((line.content.length + 1) / 85))
+
   const onTextareaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     increaseTextareaHeight()
-    updateLineBlockValue(line, event?.target?.value)
+    updateLineBlockValue(line, event?.target?.value.trim())
   }
 
   const increaseTextareaHeight = () => {
     if(!textareaRef.current) return
-
+    
     textareaRef.current.style.height = INITIAL_LINE_HEIGHT + 'px'
     textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px'
   }
@@ -85,7 +87,7 @@ export function LineBlock({ line }: Props){
   const handleDelete = () => deleteLineBlockByUUID(line.uuid)
 
   return(
-    <StyledLine isEditing={line.isEditing}>
+    <StyledLine isEditing={line.isEditing} initialHeight={initialHeight}>
       <div className="line-control">
         <AiOutlineDelete onClick={handleDelete} id="delete-btn"/>
       </div>
