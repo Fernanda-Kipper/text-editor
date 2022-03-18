@@ -1,16 +1,15 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import { EditorPage } from "./pages/editor";
-import { Home } from "./pages/home";
-import PreviewPage from "./pages/preview";
+import { AllFilesPage } from "./pages/all-files"
 
 export function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/editor" element={<EditorPage />} />
-        <Route path="/preview" element={<PreviewPage/>} />
+        <Route path="/" element={<AllFilesPage />} />
+        <Route path="/editor/:slug" element={<EditorPage />} />
+        <Route path="favorites"/>
       </Routes>
     </BrowserRouter>
   );
