@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 import { useEditorContext } from "../hooks/useEditorContext"
-import { LineBlock } from "./line-block"
 
 const EditorWrapper = styled.div`
   display: flex;
@@ -16,11 +15,10 @@ const EditorWrapper = styled.div`
 `
 
 export function Editor(){
-  const { editorContent } = useEditorContext()
+  const {  } = useEditorContext()
 
   return (
     <EditorWrapper>
-      {editorContent.map(line => <LineBlock line={line} key={line.uuid} />)}
     </EditorWrapper>
   )
 }
