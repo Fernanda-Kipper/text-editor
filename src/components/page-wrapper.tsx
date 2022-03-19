@@ -5,11 +5,12 @@ interface Props {
 }
 
 export const PageWrapper = styled.div<Props>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: ${props => props.justify ? props.justify : 'center'};
   position: relative;
+
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: ${props => props.justify ? props.justify : 'flex-start'};
 
   width: 100%;
   height: 100%;

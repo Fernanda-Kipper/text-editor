@@ -1,27 +1,25 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import { RiInboxArchiveLine, RiHeart2Line, RiArrowRightCircleLine, RiEdit2Line } from 'react-icons/ri'
+import { 
+    RiInboxArchiveLine, 
+    RiHeart2Line, 
+    RiArrowRightCircleLine, 
+    RiEdit2Line } from 'react-icons/ri'
 import styled from "styled-components"
 import { RoundButton } from './buttons/round-button'
 import { When } from './when'
 import { ModalNewFile } from './modal-new-file'
 
 const Aside = styled.aside`
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
+    padding: 48px 0px;
 
-    @media(min-width: 768px){
+    @media(min-width: 868px){
         background-color: var(--secondary-background);
-        padding: 48px 0px;
-        width: 20%;
-        min-width: 320px;
+        width: 320px;
     }
 
     &.expanded {
         background-color: var(--secondary-background);
-        padding: 48px 0px;
         width: 100%;
     }
 `
@@ -54,7 +52,7 @@ const Nav = styled.nav<{ isActive: boolean }>`
         visibility: visible;
     }
 
-    @media(min-width: 768px){
+    @media(min-width: 868px){
         visibility: visible;
     }
 `

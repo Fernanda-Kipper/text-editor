@@ -58,7 +58,7 @@ const Modal = styled.div`
         line-height: 24px;
     }
 
-    @media(min-width: 768px){
+    @media(min-width: 868px){
         width: 60%;
         max-width: 600px;
 
@@ -126,13 +126,11 @@ export function ModalNewFile(props: Props){
     }
 
     useEffect(() => {
-        if(!data?.createFile.slug) return
+        if(!data?.slug) return
         setTitle('')
         props.handleClose()
-        navigate(`/editor/${data.createFile.slug}`)
+        navigate(`/editor/${data.slug}`)
     }, [data])
-
-    console.log(title.length)
 
     return(
         <When expr={!!props.isOpen}>

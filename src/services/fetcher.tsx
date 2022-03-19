@@ -1,12 +1,15 @@
 import axios, { AxiosPromise } from 'axios';
 
 const url = process.env.REACT_APP_CONTENT_API_URL as string;
+const token = process.env.REACT_APP_CONTENT_API_TOKEN as string;
 
 export function customFetcher<TData>(query: string): AxiosPromise<TData> {
   return axios({
     url,
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Content-Type': 'application/json'
+    },
     data: { query }
   })
 }

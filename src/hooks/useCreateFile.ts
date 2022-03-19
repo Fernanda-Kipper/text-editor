@@ -1,8 +1,9 @@
 import { useMutation } from 'react-query'
 import { customFetcher } from '../services/fetcher'
-import { CreateFilePayload, CreateFileResponse } from '../types/createFile'
+import { CreateFileResponse, PublishFileResponse } from '../types/api-response'
+import { CreateFilePayload } from '../types/api-payload'
 
-const generateCreatorQuery = (data: CreateFilePayload) => `
+const generateCreateQuery = (data: CreateFilePayload) => `
   mutation {
     createFile(data: {
         title: "${data.title}",
@@ -10,17 +11,34 @@ const generateCreatorQuery = (data: CreateFilePayload) => `
         slug: "${data.slug}",
         lastUpdated: "${data.lastUpdated}"
       }) {
-        slug
+        slug,
+        id
       }
   }
 `
 
-const fetcher = (query: string) => customFetcher<CreateFileResponse>(query)
-  .then(res => res.data.data);
+const generatePublishQuery = (id: string) => `
+  mutation {
+    publishFile(where: { id: "${id}"}){
+      slug,
+      title,
+      body,
+      lastUpdated
+    }
+  }
+`
+
+const createAndPublishFile = async (mutation: CreateFilePayload) => {
+  const { createFile } = await customFetcher<CreateFileResponse>(generateCreateQuery(mutation)).then(res => res.data.data);
+  const { publishFile } = await customFetcher<PublishFileResponse>(generatePublishQuery(createFile.id)).then(res => res.data.data);
+  return {
+    slug: publishFile?.slug,
+  }
+}
 
 export function useCreateFile() {
   const { data, isLoading, isError, isSuccess, mutate } = useMutation(
-    (mutation: CreateFilePayload) => fetcher(generateCreatorQuery(mutation))
+    (mutation: CreateFilePayload) => createAndPublishFile(mutation)
   );
 
   return {
