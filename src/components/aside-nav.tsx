@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import { RiInboxArchiveLine, RiHeart2Line, RiArrowRightCircleLine } from 'react-icons/ri'
+import { RiInboxArchiveLine, RiHeart2Line, RiArrowRightCircleLine, RiEdit2Line } from 'react-icons/ri'
 import styled from "styled-components"
+import { RoundButton } from './buttons/round-button'
+import { When } from './when'
 
 const Aside = styled.aside`
     position: absolute;
@@ -56,44 +58,6 @@ const Nav = styled.nav<{ isActive: boolean }>`
     }
 `
 
-const Button = styled.button`
-    background-color: var(--primary-purple);
-    color: white;
-    height: 48px;
-    width: 48px;
-    font-size: 24px;
-    font-weight: semi-bold;
-    border: 0;
-    border-radius: 48px;
-    cursor: pointer;
-
-    position: absolute;
-    bottom: 24px;
-    left: 24px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:hover {
-        background-color: rgba(119, 71, 255, 0.6);
-    }
-
-    &.add {
-        visibility: hidden;
-    }
-
-    @media(min-width: 768px){
-        &.add {
-            visibility: visible;
-        }
-
-        &.expand {
-            visibility: hidden;
-        }
-    }
-`
-
 export function AsideNav(){
     const [isExpanded, setIsExpanded] = useState(false)
     const { pathname } = useLocation()
@@ -132,12 +96,22 @@ export function AsideNav(){
                 <RiHeart2Line />
                 Favorites
             </Nav>
-            <Button className="add" onClick={handleNewFile}>
-                +
-            </Button>
-            <Button className="expand" onClick={handleExpand}>
+            <Nav
+                className={isExpanded ? 'expanded' : ''}
+                onClick={handleNewFile} 
+                isActive={pathname.includes('editor')}
+            >
+                <RiEdit2Line />
+                <When expr={pathname.includes('editor')}>
+                    {pathname.split('/')[2]}
+                </When>
+                <When expr={!pathname.includes('editor')}>
+                    New
+                </When>
+            </Nav>
+            <RoundButton className="expand" onClick={handleExpand}>
                 <RiArrowRightCircleLine />
-            </Button>
+            </RoundButton>
         </Aside>
     )
 }
