@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import { RiInboxArchiveLine, RiHeart2Line, RiPencilFill } from 'react-icons/ri'
+import { RiInboxArchiveLine, RiHeart2Line, RiArrowRightCircleLine } from 'react-icons/ri'
 import styled from "styled-components"
 
 const Aside = styled.aside`
@@ -7,10 +8,19 @@ const Aside = styled.aside`
     top: 0;
     bottom: 0;
     left: 0;
-    padding: 48px 0px;
-    width: 20%;
 
-    background-color: var(--secondary-background);
+    @media(min-width: 768px){
+        background-color: var(--secondary-background);
+        padding: 48px 0px;
+        width: 20%;
+        min-width: 320px;
+    }
+
+    &.expanded {
+        background-color: var(--secondary-background);
+        padding: 48px 0px;
+        width: 100%;
+    }
 `
 
 const Nav = styled.nav<{ isActive: boolean }>`
@@ -23,6 +33,8 @@ const Nav = styled.nav<{ isActive: boolean }>`
     align-items: center;
     justify-content: flex-start;
 
+    visibility: hidden;
+
     svg {
         margin-right: 8px;
     }
@@ -33,6 +45,14 @@ const Nav = styled.nav<{ isActive: boolean }>`
 
     &:hover {
         background-color: ${(props) => !props.isActive ? 'rgba(119, 71, 255, 0.1)' : ''};
+    }
+
+    &.expanded {
+        visibility: visible;
+    }
+
+    @media(min-width: 768px){
+        visibility: visible;
     }
 `
 
@@ -51,12 +71,31 @@ const Button = styled.button`
     bottom: 24px;
     left: 24px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     &:hover {
         background-color: rgba(119, 71, 255, 0.6);
+    }
+
+    &.add {
+        visibility: hidden;
+    }
+
+    @media(min-width: 768px){
+        &.add {
+            visibility: visible;
+        }
+
+        &.expand {
+            visibility: hidden;
+        }
     }
 `
 
 export function AsideNav(){
+    const [isExpanded, setIsExpanded] = useState(false)
     const { pathname } = useLocation()
     const navigate = useNavigate()
 
@@ -66,18 +105,38 @@ export function AsideNav(){
         navigate(`/editor/${slug}`)
     }
 
+    const handleNavigate = (path: string) => {
+        setIsExpanded(false)
+        navigate(path)
+    }
+
+    const handleExpand = () => {
+        setIsExpanded(prev => !prev)
+    }
+
     return(
-        <Aside>
-            <Nav  onClick={() => navigate('/')} isActive={pathname === '/'}>
+        <Aside className={isExpanded ? 'expanded' : ''}>
+            <Nav
+                className={isExpanded ? 'expanded' : ''}
+                onClick={() => handleNavigate('/')} 
+                isActive={pathname === '/'}
+            >
                 <RiInboxArchiveLine />
                 All files
             </Nav>
-            <Nav onClick={() => navigate('/favorites')} isActive={pathname === '/favorites'}>
+            <Nav
+                className={isExpanded ? 'expanded' : ''}
+                onClick={() => handleNavigate('/favorites')} 
+                isActive={pathname === '/favorites'}
+            >
                 <RiHeart2Line />
                 Favorites
             </Nav>
-            <Button onClick={handleNewFile}>
+            <Button className="add" onClick={handleNewFile}>
                 +
+            </Button>
+            <Button className="expand" onClick={handleExpand}>
+                <RiArrowRightCircleLine />
             </Button>
         </Aside>
     )
