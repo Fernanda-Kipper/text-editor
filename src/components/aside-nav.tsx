@@ -21,6 +21,10 @@ const Aside = styled.aside`
     &.expanded {
         background-color: var(--secondary-background);
         width: 100%;
+
+        position: absolute;
+        top: 0;
+        bottom: 0;
     }
 `
 
@@ -30,11 +34,9 @@ const Nav = styled.nav<{ isActive: boolean }>`
     font-size: 24px;
     color: white;
 
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: flex-start;
-
-    visibility: hidden;
 
     svg {
         margin-right: 8px;
@@ -49,11 +51,11 @@ const Nav = styled.nav<{ isActive: boolean }>`
     }
 
     &.expanded {
-        visibility: visible;
+        display: flex;
     }
 
     @media(min-width: 868px){
-        visibility: visible;
+        display: flex;
     }
 `
 

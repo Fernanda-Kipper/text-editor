@@ -9,6 +9,7 @@ import { useFiles } from "../hooks/useFiles";
 
 const Content = styled.div` 
     padding: 48px 24px;
+    flex: 1;
 `
 
 export function AllFilesPage(){
