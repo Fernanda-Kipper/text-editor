@@ -4,6 +4,7 @@ import { RiInboxArchiveLine, RiHeart2Line, RiArrowRightCircleLine, RiEdit2Line }
 import styled from "styled-components"
 import { RoundButton } from './buttons/round-button'
 import { When } from './when'
+import { ModalNewFile } from './modal-new-file'
 
 const Aside = styled.aside`
     position: absolute;
@@ -60,26 +61,22 @@ const Nav = styled.nav<{ isActive: boolean }>`
 
 export function AsideNav(){
     const [isExpanded, setIsExpanded] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const { pathname } = useLocation()
     const navigate = useNavigate()
 
-    const handleNewFile = () => {
-        // post to API para criar novo arquivo
-        const slug = 'fkjdfkj'
-        navigate(`/editor/${slug}`)
-    }
+    const handleModal = () => setIsModalOpen(prev => !prev)
+
+    const handleExpand = () => setIsExpanded(prev => !prev)
 
     const handleNavigate = (path: string) => {
         setIsExpanded(false)
         navigate(path)
     }
 
-    const handleExpand = () => {
-        setIsExpanded(prev => !prev)
-    }
-
     return(
         <Aside className={isExpanded ? 'expanded' : ''}>
+            <ModalNewFile isOpen={isModalOpen} handleClose={handleModal}/>
             <Nav
                 className={isExpanded ? 'expanded' : ''}
                 onClick={() => handleNavigate('/')} 
@@ -98,7 +95,7 @@ export function AsideNav(){
             </Nav>
             <Nav
                 className={isExpanded ? 'expanded' : ''}
-                onClick={handleNewFile} 
+                onClick={handleModal} 
                 isActive={pathname.includes('editor')}
             >
                 <RiEdit2Line />
