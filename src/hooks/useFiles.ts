@@ -22,8 +22,11 @@ export function useFiles() {
     () => fetcher(generateCreatorQuery())
   );
 
+  const favorites = data?.files.filter(file => !!file.favorite)
+
   return {
-    data,
+    files: data?.files,
+    favorites,
     isLoading,
     isError
   }
