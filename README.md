@@ -19,14 +19,14 @@
 
 ## Desktop 💻
 <p align="center">
-    <img src="./.github/assets/file-list.png" width="400px">
-    <img src="./.github/assets/add-file.png" width="400px">
+    <img src="./.github/assets/file-list.png" width="300px">
+    <img src="./.github/assets/add-file.png" width="300px">
 </p>
 
 ## Mobile 📱
 <p align="center">
-    <img src="./.github/assets/file-list-mobile.png" height="400px">
-    <img src="./.github/assets/file-list-likes.png" height="400px">
+    <img src="./.github/assets/file-list-mobile.png" height="200px">
+    <img src="./.github/assets/file-list-likes.png" height="200px">
 </p>
 
 
