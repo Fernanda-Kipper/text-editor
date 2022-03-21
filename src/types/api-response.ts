@@ -22,3 +22,9 @@ export type FetchFilesResponse = {
         files: Omit<File, "body">[]
     }
 }
+
+export type EditFileResponse = {
+    data: {
+        slug?: string
+    }
+}

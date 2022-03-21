@@ -6,6 +6,7 @@ import { RiHeart2Line, RiHeart2Fill } from 'react-icons/ri'
 import { File } from '../types/file';
 import { When } from './when';
 import { FormatDate } from '../utils/format-date';
+import { useEditFile } from '../hooks/useFileEdit';
 
 interface Props {
     file: Omit<File, 'body'>
@@ -57,25 +58,30 @@ const Container = styled.div`
 
 export function FileItem({ file }: Props){
     const navigate = useNavigate()
+    const { updateFavorite } = useEditFile()
 
     const handleOpen = () => {
         navigate(`/editor/${file.slug}`)
     }
 
+    const handleFavorite = () => {
+        updateFavorite({...file, favorite: !file.favorite})
+    }
+
     const formattedLastUpdate = FormatDate(Number(file.lastUpdated))
 
     return(
-        <Container onClick={handleOpen}>
-            <div>
+        <Container>
+            <div onClick={handleOpen}>
                 <p>{file.title}</p>
                 <span>last update: {formattedLastUpdate}</span>
             </div>
             <div className="buttons">
                 <When expr={file.favorite}>
-                    <RiHeart2Fill fontSize="28px"/>
+                    <RiHeart2Fill fontSize="28px" onClick={handleFavorite}/>
                 </When>
                 <When expr={!file.favorite}>
-                    <RiHeart2Line fontSize="28px"/> 
+                    <RiHeart2Line fontSize="28px" onClick={handleFavorite}/> 
                 </When>
                 <IoTrashOutline fontSize="28px"/>
             </div>

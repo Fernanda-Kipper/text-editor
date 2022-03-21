@@ -9,6 +9,7 @@ const generateCreatorQuery = () => `
             slug
             lastUpdated
             favorite
+            id
         }
     }
 `

@@ -2,6 +2,7 @@ import { useMutation } from 'react-query'
 import { customFetcher } from '../services/fetcher'
 import { CreateFileResponse, PublishFileResponse } from '../types/api-response'
 import { CreateFilePayload } from '../types/api-payload'
+import { generatePublishQuery } from '../utils/generate-publish-query'
 
 const generateCreateQuery = (data: CreateFilePayload) => `
   mutation {
@@ -14,17 +15,6 @@ const generateCreateQuery = (data: CreateFilePayload) => `
         slug,
         id
       }
-  }
-`
-
-const generatePublishQuery = (id: string) => `
-  mutation {
-    publishFile(where: { id: "${id}"}){
-      slug,
-      title,
-      body,
-      lastUpdated
-    }
   }
 `
 
