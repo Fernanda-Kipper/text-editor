@@ -1,46 +1,81 @@
-# Getting Started with Create React App
+<h1 align="center" style="color: #805ad5; font-weight: bold;">Text Editor ✍</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+ <a href="#tech">Technologies</a> • 
+ <a href="#started">Getting Started</a> • 
+ <a href="#contribute">Contribute</a> •
+ <a href="#license">License</a>
+</p>
 
-## Available Scripts
+<p align="center">
+<b>This application is a online Text Editor, where users can create and edit markdown files.</b>
+</p>
 
-In the project directory, you can run:
+## Desktop 💻
+<p align="center">
+    <img src="./.github/assets/file-list.png" width="400px">
+    <img src="./.github/assets/add-file.png" width="400px">
+</p>
 
-### `npm start`
+## Mobile 📱
+<p align="center">
+    <img src="./.github/assets/file-list-mobile.png" height="400px">
+    <img src="./.github/assets/file-list-likes.png" height="400px">
+</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<h2 id="tech">Technologies</h2>
 
-### `npm test`
+### Client:
+  Built using [React JS](https://pt-br.reactjs.org/), this interface and the layout ware made from scratch by me.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### API
+  For building the server of this application, I used [GraphCMS](https://graphcms.com/) that is an CMS that allow us to build [GraphQL](https://graphql.org/) Content APIs.
 
-### `npm run build`
+<h2 id="started">Getting Started</h2>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<h4> Pre-requisites</h4>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node 12
+- Git 2
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<h4>Install project</h4>
 
-### `npm run eject`
+```
+git clone https://github.com/Fernanda-Kipper/text-editor.git
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<h4>Environment Variables</h4>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+In the root of this project, create a `.env` file with the keys and values located on `.env.example`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<h4>Start server</h4>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+  //in root
+  npm start
+```
 
-## Learn More
+<h2 id="contribute">Contribute 🚀</h2>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If you want to contribute, clone this repo, create your work branch and get your hands dirty!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+git clone https://github.com/Fernanda-Kipper/text-editor.git
+git checkout -b feature/NAME
+```
+
+ At the end, open a Pull Request explaining the problem solved or feature made, if exists, append screenshot of visual modifications and wait for the review!
+
+[How to create a Pull Request](https://www.atlassian.com/br/git/tutorials/making-a-pull-request)
+
+[Commit pattern](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
+
+
+<h2 id="license">License 📃 </h2>
+
+This project is under [MIT](./.github/LICENSE) license
+
+
+
