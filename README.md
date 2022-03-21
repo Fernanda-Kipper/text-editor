@@ -1,4 +1,10 @@
-<h1 align="center" style="color: #805ad5; font-weight: bold;">Text Editor ✍</h1>
+<h1 align="center" style="font-weight: bold;">Text Editor ✍</h1>
+
+<p align="center">
+
+![Underdevelopment](https://img.shields.io/badge/in-construction-fcd303?style=flat&logo=build&logoColor=white)
+
+</p>
 
 <p align="center">
  <a href="#tech">Technologies</a> • 
