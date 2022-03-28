@@ -44,7 +44,10 @@ const Nav = styled.nav<{ isActive: boolean }>`
 
     padding: 24px 42px;
     background-color: ${(props) => props.isActive ? 'var(--secondary-purple)' : 'transparent'};
+
     cursor: pointer;
+
+    transition: all 0.2s ease-in;
 
     &:hover {
         background-color: ${(props) => !props.isActive ? 'rgba(119, 71, 255, 0.1)' : ''};
