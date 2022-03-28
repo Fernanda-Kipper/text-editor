@@ -1,6 +1,7 @@
 import styled from "styled-components"
 
 import { useEditorContext } from "../hooks/useEditorContext"
+import { EditorHeader } from "./editor-header"
 
 const EditorWrapper = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ export function Editor(){
 
   return (
     <EditorWrapper>
+      <EditorHeader />
     </EditorWrapper>
   )
 }
