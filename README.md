@@ -3,6 +3,8 @@
 <p align="center">
 
 ![Underdevelopment](https://img.shields.io/badge/in-construction-fcd303?style=flat&logo=build&logoColor=white)
+![react](https://img.shields.io/badge/React-blue?style=flat&logo=react)
+![Underdevelopment](https://img.shields.io/badge/GraphQL-e10098?style=flat&logo=graphql)
 
 </p>
 
@@ -17,16 +19,9 @@
 <b>This application is a online Text Editor, where users can create and edit markdown files.</b>
 </p>
 
-## Desktop 💻
 <p align="center">
-    <img src="./.github/assets/file-list.png" width="300px">
-    <img src="./.github/assets/add-file.png" width="300px">
-</p>
-
-## Mobile 📱
-<p align="center">
-    <img src="./.github/assets/file-list-mobile.png" height="200px">
-    <img src="./.github/assets/file-list-likes.png" height="200px">
+    <img src="./.github/assets/file-edit.png" width="300px">
+    <img src="./.github/assets/files.png" width="300px">
 </p>
 
 
@@ -40,7 +35,7 @@
 
 <h2 id="started">Getting Started</h2>
 
-<h4> Pre-requisites</h4>
+<h4> Prerequisites</h4>
 
 - Node 12
 - Git 2
