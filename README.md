@@ -55,7 +55,7 @@ In the root of this project, create a `.env` file with the keys and values locat
   npm start
 ```
 
-<h2 id="contribute"👩‍💻 Contribute</h2>
+<h2 id="contribute">👩‍💻 Contribute</h2>
 
 If you want to contribute, clone this repo, create your work branch and get your hands dirty!
 
