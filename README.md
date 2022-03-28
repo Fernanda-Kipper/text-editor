@@ -30,7 +30,7 @@
 ### API
   For building the server of this application, I used [GraphCMS](https://graphcms.com/) that is an CMS that allow us to build [GraphQL](https://graphql.org/) Content APIs.
 
-<h2 id="started">Getting Started</h2>
+<h2 id="started">🚀 Getting Started</h2>
 
 <h4> Prerequisites</h4>
 
@@ -55,7 +55,7 @@ In the root of this project, create a `.env` file with the keys and values locat
   npm start
 ```
 
-<h2 id="contribute">Contribute 🚀</h2>
+<h2 id="contribute"👩‍💻 Contribute</h2>
 
 If you want to contribute, clone this repo, create your work branch and get your hands dirty!
 
@@ -71,7 +71,7 @@ git checkout -b feature/NAME
 [Commit pattern](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
 
 
-<h2 id="license">License 📃 </h2>
+<h2 id="license">📃 License</h2>
 
 This project is under [MIT](./.github/LICENSE) license
 
