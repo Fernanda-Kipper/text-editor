@@ -7,6 +7,7 @@ import { File } from '../types/file';
 import { When } from './when';
 import { FormatDate } from '../utils/format-date';
 import { useEditFile } from '../hooks/useFileEdit';
+import { useEditorContext } from '../hooks/useEditorContext';
 
 interface Props {
     file: Omit<File, 'body'>
@@ -57,10 +58,14 @@ const Container = styled.div`
 `
 
 export function FileItem({ file }: Props){
+    const { setId, setTitle } = useEditorContext()
     const navigate = useNavigate()
     const { updateFavorite } = useEditFile()
 
     const handleOpen = () => {
+        console.log("hello")
+        setId(file.id)
+        setTitle(file.title)
         navigate(`/editor/${file.slug}`)
     }
 

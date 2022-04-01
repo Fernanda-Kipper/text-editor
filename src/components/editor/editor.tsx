@@ -1,7 +1,10 @@
+import { useEffect } from "react"
 import styled from "styled-components"
 
-import { useEditorContext } from "../hooks/useEditorContext"
+import { useEditorContext } from "../../hooks/useEditorContext"
+import { useFile } from "../../hooks/useFile"
 import { EditorHeader } from "./editor-header"
+import { EditorPlayground } from "./editor-playground"
 
 const EditorWrapper = styled.div`
   display: flex;
@@ -16,11 +19,17 @@ const EditorWrapper = styled.div`
 `
 
 export function Editor(){
-  const {  } = useEditorContext()
+  const { id, setBody } = useEditorContext()
+  const { body } = useFile(id)
+
+  useEffect(() => {
+    setBody(body ?? [])
+  }, [body, setBody])
 
   return (
     <EditorWrapper>
       <EditorHeader />
+      <EditorPlayground />
     </EditorWrapper>
   )
 }

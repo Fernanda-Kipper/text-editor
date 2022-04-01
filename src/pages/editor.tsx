@@ -1,5 +1,5 @@
 import { AsideNav } from "../components/aside-nav";
-import { Editor } from "../components/editor";
+import { Editor } from "../components/editor/editor";
 import { PageWrapper } from "../components/page-wrapper";
 
 export function EditorPage(){

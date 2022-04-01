@@ -2,7 +2,8 @@ import styled from "styled-components"
 import { GrBold, GrItalic, GrUnderline, GrList, GrOrderedList } from "react-icons/gr"
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from "react-icons/md"
 import { useState } from "react";
-import { When } from "./when";
+import { When } from "../when";
+import { useEditorContext } from "../../hooks/useEditorContext";
 
 const Header = styled.header`
     background-color: var(--secondary-background);
@@ -56,7 +57,9 @@ const LargeButton = styled.button`
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+
+    min-width: 120px;
 
     p {
         font-size: 14px;
@@ -75,7 +78,7 @@ const Dropdown = styled.div`
     left: 24px;
 
     button {
-        background: rgba(29, 30, 36, 0.9);
+        background: rgba(29, 30, 36, 1);
     }
 `
 
@@ -96,7 +99,7 @@ const DropdownOption = styled.button<{ hidden: boolean}>`
     justify-content: center;
 
     padding: 10px 12px !important;
-    width: 100px;
+    width: 120px;
 
     margin: 4px 0;
 
@@ -105,16 +108,31 @@ const DropdownOption = styled.button<{ hidden: boolean}>`
     font-size: 14px;
 `
 
-interface EditorHeaderProps {
-
-}
-
-export function EditorHeader(props : EditorHeaderProps){
-    const [isTextOptionsOpen, setIsTextOptionsOpen] = useState(false);
+export function EditorHeader(){
+    const { addLine } = useEditorContext()
+    const [isTextOptionsOpen, setIsTextOptionsOpen] = useState(false)
 
     const handleOpen = () => {
-        setIsTextOptionsOpen(prev => !prev);
+        setIsTextOptionsOpen(prev => !prev)
     }
+
+    const addHeading1 = () => {
+        handleOpen()
+        addLine("#; ")
+    }
+    const addHeading2 = () => {
+        handleOpen()
+        addLine("##; ")
+    }
+    const addHeading3 = () => {
+        handleOpen()
+        addLine("###; ")
+    }
+
+    const addText = () => addLine(";")
+    const addBold = () => addLine("**; ")
+    const addItalic = () => addLine("*; ")
+    const addUnderline = () => addLine("_; ")
 
     return(
        <Header>
@@ -128,14 +146,14 @@ export function EditorHeader(props : EditorHeaderProps){
                 </When>
             </LargeButton>
            <Dropdown>
-                <DropdownOption hidden={!isTextOptionsOpen}>Heading 1</DropdownOption>
-                <DropdownOption hidden={!isTextOptionsOpen}>Heading 2</DropdownOption>
-                <DropdownOption hidden={!isTextOptionsOpen}>Heading 3</DropdownOption>
+                <DropdownOption onClick={addHeading1} hidden={!isTextOptionsOpen}>Heading 1</DropdownOption>
+                <DropdownOption onClick={addHeading2} hidden={!isTextOptionsOpen}>Heading 2</DropdownOption>
+                <DropdownOption onClick={addHeading3} hidden={!isTextOptionsOpen}>Heading 3</DropdownOption>
            </Dropdown>
-           <SmallButton>T</SmallButton>
-           <SmallButton><GrBold size="24px"/></SmallButton>
-           <SmallButton><GrItalic size="24px"/></SmallButton>
-           <SmallButton><GrUnderline size="24px"/></SmallButton>
+           <SmallButton onClick={addText}>T</SmallButton>
+           <SmallButton onClick={addBold}><GrBold size="24px"/></SmallButton>
+           <SmallButton onClick={addItalic}><GrItalic size="24px"/></SmallButton>
+           <SmallButton onClick={addUnderline}><GrUnderline size="24px"/></SmallButton>
            <SmallButton><GrList size="24px"/></SmallButton>
            <SmallButton><GrOrderedList size="24px"/></SmallButton>
        </Header>
