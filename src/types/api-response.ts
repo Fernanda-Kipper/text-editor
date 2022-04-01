@@ -28,3 +28,9 @@ export type EditFileResponse = {
         slug?: string
     }
 }
+
+export type FetchFileResponse = {
+    data: { 
+        body: string[],
+    }
+}
