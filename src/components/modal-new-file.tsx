@@ -39,7 +39,7 @@ const Modal = styled.div`
 
     label {
         font-size: 20px;
-        color: white;
+        color: var(--color-white);
         margin: 16px 0;
     }
 
@@ -92,7 +92,7 @@ const Button = styled.button`
 
     &.filled {
         background-color: var(--primary-purple);
-        color: white;
+        color: var(--color-white);
     }
 
     &.bordered {

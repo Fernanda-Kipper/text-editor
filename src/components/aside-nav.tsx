@@ -29,10 +29,9 @@ const Aside = styled.aside`
 `
 
 const Nav = styled.nav<{ isActive: boolean }>`
-    font-family: Montserrat, sans-serif;
-    font-weight: semi-bold;
+    font-family: "Montserrat", sans-serif;
     font-size: 24px;
-    color: white;
+    color: var(--color-white);
 
     display: none;
     align-items: center;

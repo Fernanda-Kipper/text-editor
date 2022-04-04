@@ -20,7 +20,7 @@ const LineContainer = styled.div`
 
     cursor: pointer;
 
-    color: white;
+    color: var(--color-white);
     font-family: "Source Serif Pro", serif;
     font-size: 20px;
 
@@ -48,7 +48,7 @@ const LineHeading = styled.input`
 
     cursor: pointer;
 
-    color: white;
+    color: var(--color-white);
     font-family: "Source Serif Pro", serif;
     font-size: 20px;
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const RoundButton = styled.button`
     background-color: var(--primary-purple);
-    color: white;
+    color: var(--color-white);
     height: 48px;
     width: 48px;
     font-size: 24px;

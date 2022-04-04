@@ -27,7 +27,7 @@ const Container = styled.div`
     margin-bottom: 24px;
     padding: 16px;
     
-    color: white;
+    color: var(--color-white);
     font-family: 'Montserrat', sans-serif;
 
     &:hover {
