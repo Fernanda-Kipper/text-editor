@@ -129,7 +129,7 @@ export function EditorHeader(){
         addLine("###; ")
     }
 
-    const addText = () => addLine(";")
+    const addText = () => addLine("; ")
     const addBold = () => addLine("**; ")
     const addItalic = () => addLine("*; ")
     const addUnderline = () => addLine("_; ")
