@@ -2,10 +2,11 @@ import { useQuery } from 'react-query'
 import { customFetcher } from '../services/fetcher'
 import { FetchFileResponse } from '../types/api-response'
 
-const generateCreatorQuery = (id: string) => `
+const generateCreatorQuery = (slug: string) => `
     query {
-        file(where: {id: ${id}}) {
-          body
+        file(where: {slug: "${slug}"}) {
+          body,
+          id
         }
     }
 `
@@ -13,17 +14,17 @@ const generateCreatorQuery = (id: string) => `
 const fetcher = (query: string) => customFetcher<FetchFileResponse>(query)
   .then(res => res.data.data);
 
-export function useFile(id?: string) {
+export function useFile(slug?: string) {
   const { data, isLoading, isError } = useQuery(
-    ['file', id],
-    () => fetcher(generateCreatorQuery(id ?? "")),
+    ['file', slug],
+    () => fetcher(generateCreatorQuery(slug ?? "")),
     {
-      enabled: !!id
+      enabled: !!slug
     }
   );
 
   return {
-    body: data?.body,
+    data: data?.file,
     isLoading,
     isError
   }

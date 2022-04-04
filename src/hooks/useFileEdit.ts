@@ -22,7 +22,7 @@ const generateUpdateFavoriteQuery = (mutation: Partial<File>) => `
 const generateUpdateBodyQuery = (mutation: Partial<File>) => `
   mutation {
     updateFile(where: {id: "${mutation.id}"}, data: {
-      body: "${mutation.body}"
+      body: ${mutation.body}
     }){
       slug
     }

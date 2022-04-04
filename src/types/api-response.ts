@@ -31,6 +31,9 @@ export type EditFileResponse = {
 
 export type FetchFileResponse = {
     data: { 
-        body: string[],
+        file: {
+            body: string[],
+            id: string
+        }
     }
 }

@@ -1,9 +1,11 @@
 import styled from "styled-components"
-import { GrBold, GrItalic, GrUnderline, GrList, GrOrderedList } from "react-icons/gr"
+import { GrBold, GrItalic, GrUnderline, GrList, GrOrderedList, GrSave } from "react-icons/gr"
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from "react-icons/md"
 import { useState } from "react";
 import { When } from "../when";
 import { useEditorContext } from "../../hooks/useEditorContext";
+import { PrimaryButton } from "../buttons/primary-button";
+import { useEditFile } from "../../hooks/useFileEdit";
 
 const Header = styled.header`
     background-color: var(--secondary-background);
@@ -18,28 +20,37 @@ const Header = styled.header`
 
     position: relative;
 
-    button {
-        padding: 10px 4px;
-        border-radius: 10px;
-        border: 0;
+    div {
+        align-self: flex-start;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        background: rgba(29, 30, 36, 0.5);
-        color: white;
+        button {
+            padding: 10px 4px;
+            border-radius: 10px;
+            border: 0;
 
-        cursor: pointer;
-        
-        transition: all 0.2s ease-in;
+            margin-right: 12px;
 
-        svg {
-            color: white;
+            background: rgba(29, 30, 36, 0.5);
+            color: var(--color-white);
 
-            path { 
-                stroke: white;
+            cursor: pointer;
+            
+            transition: all 0.2s ease-in;
+
+            svg {
+                color: var(--color-white);
+
+                path { 
+                    stroke: var(--color-white);
+                }
             }
-        }
 
-        &:hover{
-            background: rgba(29, 30, 36, 0.8);
+            &:hover{
+                background: rgba(29, 30, 36, 0.8);
+            }
         }
     }
 `
@@ -53,11 +64,12 @@ const SmallButton = styled.button`
 `
 
 const LargeButton = styled.button`
-    padding: 10px 12px !important;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    height: 54px;
+    padding: 8px 12px !important;
 
     min-width: 120px;
 
@@ -98,7 +110,7 @@ const DropdownOption = styled.button<{ hidden: boolean}>`
     align-items: center;
     justify-content: center;
 
-    padding: 10px 12px !important;
+    padding: 12px;
     width: 120px;
 
     margin: 4px 0;
@@ -109,7 +121,7 @@ const DropdownOption = styled.button<{ hidden: boolean}>`
 `
 
 export function EditorHeader(){
-    const { addLine } = useEditorContext()
+    const { addLine, saveFile } = useEditorContext()
     const [isTextOptionsOpen, setIsTextOptionsOpen] = useState(false)
 
     const handleOpen = () => {
@@ -136,26 +148,32 @@ export function EditorHeader(){
 
     return(
        <Header>
+           <div>
             <LargeButton onClick={handleOpen}>
-                <p>Heading</p>
-                <When expr={!isTextOptionsOpen}>
-                        <MdOutlineKeyboardArrowDown size="16px" color="white"/>
-                </When>
-                <When expr={isTextOptionsOpen}>
-                        <MdOutlineKeyboardArrowUp size="16px" color="white"/>
-                </When>
-            </LargeButton>
-           <Dropdown>
-                <DropdownOption onClick={addHeading1} hidden={!isTextOptionsOpen}>Heading 1</DropdownOption>
-                <DropdownOption onClick={addHeading2} hidden={!isTextOptionsOpen}>Heading 2</DropdownOption>
-                <DropdownOption onClick={addHeading3} hidden={!isTextOptionsOpen}>Heading 3</DropdownOption>
-           </Dropdown>
-           <SmallButton onClick={addText}>T</SmallButton>
-           <SmallButton onClick={addBold}><GrBold size="24px"/></SmallButton>
-           <SmallButton onClick={addItalic}><GrItalic size="24px"/></SmallButton>
-           <SmallButton onClick={addUnderline}><GrUnderline size="24px"/></SmallButton>
-           <SmallButton><GrList size="24px"/></SmallButton>
-           <SmallButton><GrOrderedList size="24px"/></SmallButton>
+                    <p>Heading</p>
+                    <When expr={!isTextOptionsOpen}>
+                            <MdOutlineKeyboardArrowDown size="16px" color="white"/>
+                    </When>
+                    <When expr={isTextOptionsOpen}>
+                            <MdOutlineKeyboardArrowUp size="16px" color="white"/>
+                    </When>
+                </LargeButton>
+            <Dropdown>
+                    <DropdownOption onClick={addHeading1} hidden={!isTextOptionsOpen}>Heading 1</DropdownOption>
+                    <DropdownOption onClick={addHeading2} hidden={!isTextOptionsOpen}>Heading 2</DropdownOption>
+                    <DropdownOption onClick={addHeading3} hidden={!isTextOptionsOpen}>Heading 3</DropdownOption>
+            </Dropdown>
+            <SmallButton onClick={addText}>T</SmallButton>
+            <SmallButton onClick={addBold}><GrBold size="24px"/></SmallButton>
+            <SmallButton onClick={addItalic}><GrItalic size="24px"/></SmallButton>
+            <SmallButton onClick={addUnderline}><GrUnderline size="24px"/></SmallButton>
+            <SmallButton><GrList size="24px"/></SmallButton>
+            <SmallButton><GrOrderedList size="24px"/></SmallButton>
+           </div>
+           <PrimaryButton onClick={saveFile}>
+               salvar
+               <GrSave color="#FFF"/>
+           </PrimaryButton>
        </Header>
     )
 }

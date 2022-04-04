@@ -20,9 +20,9 @@ export function FileListPage(){
     const shouldShowOnlyFav = pathname.includes('favorites')
 
     if(isLoading) return (
-        <Content>
+        <PageWrapper align="center" justify="center">
             <Loading />
-        </Content>
+        </PageWrapper>
     )
 
     return(

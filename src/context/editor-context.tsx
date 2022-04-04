@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { useEditFile } from "../hooks/useFileEdit";
 
 type EditorContextType = {
   id: string,
@@ -9,6 +10,7 @@ type EditorContextType = {
   setBody(body: string[]): void
   addLine(line: string): void
   updateLine(line: string, index: number): void
+  saveFile(): void
 }
 
 interface Props {
@@ -20,8 +22,9 @@ export const EditorContext = createContext({} as EditorContextType)
 export function EditorContextProvider({ children }: Props){
   const [id, setId] = useState("")
   const [title, setTitle] = useState("")
-  const [savedBody, setSavedBody] = useState<string[]>(["hello"])
+  const [savedBody, setSavedBody] = useState<string[]>()
   const [currentBody, setCurrentBody] = useState<string[]>()
+  const { updateBody } = useEditFile()
 
   const addLine = (line: string) => {
     setCurrentBody(prev => {
@@ -38,7 +41,9 @@ export function EditorContextProvider({ children }: Props){
     setCurrentBody(updatedBody)
   }
 
-  console.log({ currentBody })
+  const saveFile = () => {
+    updateBody({ id, body: currentBody })
+  }
 
   useEffect(() => {
     setCurrentBody(savedBody ?? [])
@@ -53,7 +58,8 @@ export function EditorContextProvider({ children }: Props){
       body: currentBody,
       addLine,
       setBody: setSavedBody,
-      updateLine
+      updateLine,
+      saveFile
     }}
     >
       {children}

@@ -19,12 +19,19 @@ const EditorWrapper = styled.div`
 `
 
 export function Editor(){
-  const { id, setBody } = useEditorContext()
-  const { body } = useFile(id)
+  const slug = window.location.pathname.split('/')[2]
+  const { setBody, setId } = useEditorContext()
+  const { data } = useFile(slug)
 
   useEffect(() => {
-    setBody(body ?? [])
-  }, [body, setBody])
+    if(!data?.body) return
+    setBody(data.body)
+  }, [data?.body, setBody])
+
+  useEffect(() => {
+    if(!data?.id) return
+    setId(data.id)
+  }, [slug, data?.id, setId])
 
   return (
     <EditorWrapper>

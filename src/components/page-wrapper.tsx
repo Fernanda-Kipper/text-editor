@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 interface Props {
   justify?: string;
+  align?: string;
 }
 
 export const PageWrapper = styled.div<Props>`
@@ -9,7 +10,7 @@ export const PageWrapper = styled.div<Props>`
 
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  align-items: ${props => props.align ? props.align : 'stretch'};
   justify-content: ${props => props.justify ? props.justify : 'flex-start'};
 
   width: 100%;
