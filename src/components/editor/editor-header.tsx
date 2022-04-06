@@ -1,6 +1,7 @@
 import styled from "styled-components"
-import { GrBold, GrItalic, GrUnderline, GrList, GrOrderedList, GrSave } from "react-icons/gr"
+import { GrBold, GrItalic, GrList, GrOrderedList, GrSave } from "react-icons/gr"
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdOutlineRemoveRedEye } from "react-icons/md"
+import { BsBlockquoteLeft } from "react-icons/bs"
 import { useState } from "react";
 import { When } from "../when";
 import { useEditorContext } from "../../hooks/useEditorContext";
@@ -201,13 +202,13 @@ export function EditorHeader(){
         setBody(bodyArray?.join("") ?? "")
     }
 
-    const addUnderline = () => {
+    const addQuote = () => {
         const { startPos, selectedText } = getSelectionText()
         if(!selectedText) {
-            return setBody(body + "_ _")
+            return setBody(body + "> ")
         }
         let bodyArray = body?.split("")
-        const newLine = "_" + selectedText + "_"
+        const newLine = "> " + selectedText
         bodyArray?.splice(startPos, selectedText.length, newLine)
         setBody(bodyArray?.join("") ?? "")
     }
@@ -241,7 +242,7 @@ export function EditorHeader(){
             </Dropdown>
             <SmallButton onClick={addBold}><GrBold size="24px"/></SmallButton>
             <SmallButton onClick={addItalic}><GrItalic size="24px"/></SmallButton>
-            <SmallButton onClick={addUnderline}><GrUnderline size="24px"/></SmallButton>
+            <SmallButton onClick={addQuote}><BsBlockquoteLeft size="24px"/></SmallButton>
             <SmallButton onClick={addUnorderedList}><GrList size="24px"/></SmallButton>
             <SmallButton onClick={addOrderedList}><GrOrderedList size="24px"/></SmallButton>
             <SmallButton onClick={handlePreview}><MdOutlineRemoveRedEye size="24px"/></SmallButton>
