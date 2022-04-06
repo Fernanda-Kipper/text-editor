@@ -3,8 +3,10 @@ import styled from "styled-components"
 
 import { useEditorContext } from "../../hooks/useEditorContext"
 import { useFile } from "../../hooks/useFile"
+import { When } from "../when"
 import { EditorHeader } from "./editor-header"
 import { EditorPlayground } from "./editor-playground"
+import { EditorPreview } from "./editor-preview"
 
 const EditorWrapper = styled.div`
   display: flex;
@@ -20,7 +22,7 @@ const EditorWrapper = styled.div`
 
 export function Editor(){
   const slug = window.location.pathname.split('/')[2]
-  const { setBody, setId } = useEditorContext()
+  const { setBody, setId, isPreviewMode } = useEditorContext()
   const { data } = useFile(slug)
 
   useEffect(() => {
@@ -36,7 +38,12 @@ export function Editor(){
   return (
     <EditorWrapper>
       <EditorHeader />
-      <EditorPlayground />
+      <When expr={!isPreviewMode}>
+        <EditorPlayground />
+      </When>
+      <When expr={isPreviewMode}>
+        <EditorPreview />
+      </When>
     </EditorWrapper>
   )
 }

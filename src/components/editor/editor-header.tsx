@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { GrBold, GrItalic, GrUnderline, GrList, GrOrderedList, GrSave } from "react-icons/gr"
-import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from "react-icons/md"
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdOutlineRemoveRedEye } from "react-icons/md"
 import { useState } from "react";
 import { When } from "../when";
 import { useEditorContext } from "../../hooks/useEditorContext";
@@ -120,11 +120,19 @@ const DropdownOption = styled.button<{ hidden: boolean}>`
 `
 
 export function EditorHeader(){
-    const { saveFile, setBody, body, addLine } = useEditorContext()
+    const { saveFile, setBody, body, handlePreview } = useEditorContext()
     const [isTextOptionsOpen, setIsTextOptionsOpen] = useState(false)
 
     const handleOpen = () => {
         setIsTextOptionsOpen(prev => !prev)
+    }
+
+    const setFocusOnTheEnd = () => {
+        const textarea = document.getElementById("textarea") as HTMLTextAreaElement
+        const end = body?.length || 0
+
+        textarea?.setSelectionRange(end, end)
+        textarea.focus()
     }
 
     const getSelectionText = () => {
@@ -204,6 +212,16 @@ export function EditorHeader(){
         setBody(bodyArray?.join("") ?? "")
     }
 
+    const addUnorderedList = () => {
+        setBody(body + "\n- ")
+        setFocusOnTheEnd()
+    }
+
+    const addOrderedList = () => {
+        setBody(body + "\n1. ")
+        setFocusOnTheEnd()
+    }
+
     return(
        <Header>
            <div>
@@ -224,8 +242,9 @@ export function EditorHeader(){
             <SmallButton onClick={addBold}><GrBold size="24px"/></SmallButton>
             <SmallButton onClick={addItalic}><GrItalic size="24px"/></SmallButton>
             <SmallButton onClick={addUnderline}><GrUnderline size="24px"/></SmallButton>
-            <SmallButton><GrList size="24px"/></SmallButton>
-            <SmallButton><GrOrderedList size="24px"/></SmallButton>
+            <SmallButton onClick={addUnorderedList}><GrList size="24px"/></SmallButton>
+            <SmallButton onClick={addOrderedList}><GrOrderedList size="24px"/></SmallButton>
+            <SmallButton onClick={handlePreview}><MdOutlineRemoveRedEye size="24px"/></SmallButton>
            </div>
            <PrimaryButton onClick={saveFile}>
                salvar

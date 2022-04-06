@@ -9,7 +9,8 @@ type EditorContextType = {
   setTitle(title: string): void
   setBody(body: string): void
   saveFile(): void
-  addLine(value: string): void
+  handlePreview(): void
+  isPreviewMode: boolean
 }
 
 interface Props {
@@ -23,13 +24,14 @@ export function EditorContextProvider({ children }: Props){
   const [title, setTitle] = useState("")
   const [savedBody, setSavedBody] = useState("")
   const [currentBody, setCurrentBody] = useState("")
+  const [isPreviewMode, setIsPreviewMode] = useState(false)
   const { updateBody } = useEditFile()
 
   const saveFile = () => {
     updateBody({ id, body: currentBody })
   }
 
-  const addLine = () => {}
+  const handlePreview = () => setIsPreviewMode(prev => !prev)
 
   useEffect(() => {
     setCurrentBody(savedBody ?? [])
@@ -40,11 +42,12 @@ export function EditorContextProvider({ children }: Props){
       id, 
       setId, 
       title, 
-      setTitle, 
+      setTitle,
       body: currentBody,
       setBody: setSavedBody,
       saveFile,
-      addLine
+      handlePreview,
+      isPreviewMode
     }}
     >
       {children}

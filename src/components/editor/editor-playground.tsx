@@ -2,18 +2,9 @@ import { useEffect } from "react"
 import styled from "styled-components"
 
 import { useEditorContext } from "../../hooks/useEditorContext"
+import { EditorContainer } from "./editor-container";
 
 const LINE_HEIGHT = 24;
-
-const EditorContainer = styled.div`
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-    height: 100%;
-    margin-top: 40px;
-`
 
 const EditorArea = styled.textarea`
     max-width: 80%;
