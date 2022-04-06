@@ -5,7 +5,6 @@ import { useState } from "react";
 import { When } from "../when";
 import { useEditorContext } from "../../hooks/useEditorContext";
 import { PrimaryButton } from "../buttons/primary-button";
-import { useEditFile } from "../../hooks/useFileEdit";
 
 const Header = styled.header`
     background-color: var(--secondary-background);
@@ -121,30 +120,89 @@ const DropdownOption = styled.button<{ hidden: boolean}>`
 `
 
 export function EditorHeader(){
-    const { addLine, saveFile } = useEditorContext()
+    const { saveFile, setBody, body, addLine } = useEditorContext()
     const [isTextOptionsOpen, setIsTextOptionsOpen] = useState(false)
 
     const handleOpen = () => {
         setIsTextOptionsOpen(prev => !prev)
     }
 
-    const addHeading1 = () => {
-        handleOpen()
-        addLine("#; ")
-    }
-    const addHeading2 = () => {
-        handleOpen()
-        addLine("##; ")
-    }
-    const addHeading3 = () => {
-        handleOpen()
-        addLine("###; ")
+    const getSelectionText = () => {
+        const element = document.getElementById("textarea") as HTMLTextAreaElement
+        let startPos = element?.selectionStart;
+        let endPos = element?.selectionEnd;
+        let selectedText = element.value.substring(startPos, endPos);
+        return { startPos, endPos, selectedText }
     }
 
-    const addText = () => addLine("; ")
-    const addBold = () => addLine("**; ")
-    const addItalic = () => addLine("*; ")
-    const addUnderline = () => addLine("_; ")
+    const addHeading1 = () => {
+        handleOpen()
+        const { startPos, selectedText } = getSelectionText()
+        if(!selectedText) {
+            return setBody(body + "\n#")
+        }
+        let bodyArray = body?.split("")
+        const newLine = "\n# " + selectedText
+        bodyArray?.splice(startPos, selectedText.length, newLine)
+        setBody(bodyArray?.join("") ?? "")
+    }
+
+    const addHeading2 = () => {
+        handleOpen()
+        const { startPos, selectedText } = getSelectionText()
+        if(!selectedText) {
+            return setBody(body + "\n##")
+        }
+        let bodyArray = body?.split("")
+        const newLine = "\n## " + selectedText
+        bodyArray?.splice(startPos, selectedText.length, newLine)
+        setBody(bodyArray?.join("") ?? "")
+    }
+
+    const addHeading3 = () => {
+        handleOpen()
+        const { startPos, selectedText } = getSelectionText()
+        if(!selectedText) {
+            return setBody(body + "\n###")
+        }
+        let bodyArray = body?.split("")
+        const newLine = "\n### " + selectedText
+        bodyArray?.splice(startPos, selectedText.length, newLine)
+        setBody(bodyArray?.join("") ?? "")
+    }
+
+    const addBold = () => {
+        const { startPos, selectedText } = getSelectionText()
+        if(!selectedText) {
+            return setBody(body + "** **")
+        }
+        let bodyArray = body?.split("")
+        const newLine = "**" + selectedText + "**"
+        bodyArray?.splice(startPos, selectedText.length, newLine)
+        setBody(bodyArray?.join("") ?? "")
+    }
+
+    const addItalic = () => {
+        const { startPos, selectedText } = getSelectionText()
+        if(!selectedText) {
+            return setBody(body + "* *")
+        }
+        let bodyArray = body?.split("")
+        const newLine = "*" + selectedText + "*"
+        bodyArray?.splice(startPos, selectedText.length, newLine)
+        setBody(bodyArray?.join("") ?? "")
+    }
+
+    const addUnderline = () => {
+        const { startPos, selectedText } = getSelectionText()
+        if(!selectedText) {
+            return setBody(body + "_ _")
+        }
+        let bodyArray = body?.split("")
+        const newLine = "_" + selectedText + "_"
+        bodyArray?.splice(startPos, selectedText.length, newLine)
+        setBody(bodyArray?.join("") ?? "")
+    }
 
     return(
        <Header>
@@ -163,7 +221,6 @@ export function EditorHeader(){
                     <DropdownOption onClick={addHeading2} hidden={!isTextOptionsOpen}>Heading 2</DropdownOption>
                     <DropdownOption onClick={addHeading3} hidden={!isTextOptionsOpen}>Heading 3</DropdownOption>
             </Dropdown>
-            <SmallButton onClick={addText}>T</SmallButton>
             <SmallButton onClick={addBold}><GrBold size="24px"/></SmallButton>
             <SmallButton onClick={addItalic}><GrItalic size="24px"/></SmallButton>
             <SmallButton onClick={addUnderline}><GrUnderline size="24px"/></SmallButton>

@@ -4,13 +4,12 @@ import { useEditFile } from "../hooks/useFileEdit";
 type EditorContextType = {
   id: string,
   title: string,
-  body?: string[],
+  body?: string,
   setId(id: string): void
   setTitle(title: string): void
-  setBody(body: string[]): void
-  addLine(line: string): void
-  updateLine(line: string, index: number): void
+  setBody(body: string): void
   saveFile(): void
+  addLine(value: string): void
 }
 
 interface Props {
@@ -22,28 +21,15 @@ export const EditorContext = createContext({} as EditorContextType)
 export function EditorContextProvider({ children }: Props){
   const [id, setId] = useState("")
   const [title, setTitle] = useState("")
-  const [savedBody, setSavedBody] = useState<string[]>()
-  const [currentBody, setCurrentBody] = useState<string[]>()
+  const [savedBody, setSavedBody] = useState("")
+  const [currentBody, setCurrentBody] = useState("")
   const { updateBody } = useEditFile()
-
-  const addLine = (line: string) => {
-    setCurrentBody(prev => {
-      if(prev) return [...prev, line]
-      return [line]
-    })
-  }
-
-  const updateLine = (newValue: string, id: number) => {
-    const updatedBody = currentBody?.map((value, index) => {
-      if(index === id) return newValue
-      return value
-    })
-    setCurrentBody(updatedBody)
-  }
 
   const saveFile = () => {
     updateBody({ id, body: currentBody })
   }
+
+  const addLine = () => {}
 
   useEffect(() => {
     setCurrentBody(savedBody ?? [])
@@ -56,10 +42,9 @@ export function EditorContextProvider({ children }: Props){
       title, 
       setTitle, 
       body: currentBody,
-      addLine,
       setBody: setSavedBody,
-      updateLine,
-      saveFile
+      saveFile,
+      addLine
     }}
     >
       {children}

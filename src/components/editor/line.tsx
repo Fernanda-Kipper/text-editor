@@ -90,7 +90,9 @@ const LineUnderline = styled(LineContainer)`
 `
 
 export function Line(props : LineProps){
-    const { updateLine } = useEditorContext()
+    const {  } = useEditorContext()
+
+    const updateLine  = (value: string, num: number) => {}
     
     const lineTypeAndValue = props.line.split(';')
     const [value, setValue] = useState(lineTypeAndValue.slice(1, lineTypeAndValue.length + 1).join(";"))
