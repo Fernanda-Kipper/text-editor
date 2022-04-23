@@ -9,6 +9,7 @@ import { FormatDate } from '../utils/format-date';
 import { useEditFile } from '../hooks/useFileEdit';
 import { useEditorContext } from '../hooks/useEditorContext';
 import { useFileDelete } from '../hooks/useFileDelete';
+import { LoadingScreen } from './loading-screen';
 
 interface Props {
     file: Omit<File, 'body'>
@@ -61,8 +62,8 @@ const Container = styled.div`
 export function FileItem({ file }: Props){
     const { setId, setTitle } = useEditorContext()
     const navigate = useNavigate()
-    const { updateFavorite } = useEditFile()
-    const { deleteFile } = useFileDelete()
+    const { updateFavorite, isLoading: isLoadingFavorite } = useEditFile()
+    const { deleteFile, isLoading: isLoadingDelete } = useFileDelete()
 
     const handleOpen = () => {
         setId(file.id)
@@ -79,6 +80,8 @@ export function FileItem({ file }: Props){
     }
 
     const formattedLastUpdate = FormatDate(Number(file.lastUpdated))
+
+    if(isLoadingDelete || isLoadingFavorite) return <LoadingScreen />
 
     return(
         <Container>
