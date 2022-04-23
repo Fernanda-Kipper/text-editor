@@ -5,7 +5,7 @@ import { useNavigate } from "react-router"
 import { useCreateFile } from "../hooks/useCreateFile"
 import { generateSlug } from "../utils/generate-slug"
 import { When } from "./when"
-import { Loading } from "./loading"
+import { LoadingScreen } from "./loading-screen"
 
 const ModalOverlay = styled.div`
     width: 100%;
@@ -132,26 +132,23 @@ export function ModalNewFile(props: Props){
         navigate(`/editor/${data.slug}`)
     }, [data])
 
+    if(isLoading) return <LoadingScreen />
+
     return(
         <When expr={!!props.isOpen}>
             <ModalOverlay>
                 <Modal>
-                    <When expr={!isLoading}>
-                        <label htmlFor="title">Enter your file name:</label>
-                        <input 
-                            name="title"
-                            type="text"
-                            onChange={(event) => 
-                            setTitle(event.target.value)}
-                        />
-                        <div>
-                            <Button className="bordered" onClick={props.handleClose}>discard</Button>
-                            <Button disabled={!title.length} className={`filled ${title.length ? '' : 'disabled'}`} onClick={handleCreate}>create</Button>
-                        </div>
-                    </When>
-                    <When expr={isLoading}>
-                        <Loading/>
-                    </When>
+                    <label htmlFor="title">Enter your file name:</label>
+                    <input 
+                        name="title"
+                        type="text"
+                        onChange={(event) => 
+                        setTitle(event.target.value)}
+                    />
+                    <div>
+                        <Button className="bordered" onClick={props.handleClose}>discard</Button>
+                        <Button disabled={!title.length} className={`filled ${title.length ? '' : 'disabled'}`} onClick={handleCreate}>create</Button>
+                    </div>
                 </Modal>
             </ModalOverlay>
         </When>
