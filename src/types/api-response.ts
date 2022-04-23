@@ -37,3 +37,11 @@ export type FetchFileResponse = {
         }
     }
 }
+
+export type DeleteFileResponse = {
+    data: {
+        deleteFile?: {
+            slug: string
+        }
+    }
+}

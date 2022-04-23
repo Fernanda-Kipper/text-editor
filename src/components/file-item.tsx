@@ -8,6 +8,7 @@ import { When } from './when';
 import { FormatDate } from '../utils/format-date';
 import { useEditFile } from '../hooks/useFileEdit';
 import { useEditorContext } from '../hooks/useEditorContext';
+import { useFileDelete } from '../hooks/useFileDelete';
 
 interface Props {
     file: Omit<File, 'body'>
@@ -61,9 +62,9 @@ export function FileItem({ file }: Props){
     const { setId, setTitle } = useEditorContext()
     const navigate = useNavigate()
     const { updateFavorite } = useEditFile()
+    const { deleteFile } = useFileDelete()
 
     const handleOpen = () => {
-        console.log("hello")
         setId(file.id)
         setTitle(file.title)
         navigate(`/editor/${file.slug}`)
@@ -71,6 +72,10 @@ export function FileItem({ file }: Props){
 
     const handleFavorite = () => {
         updateFavorite({...file, favorite: !file.favorite})
+    }
+
+    const handleDelete = () => {
+        deleteFile(file.id)
     }
 
     const formattedLastUpdate = FormatDate(Number(file.lastUpdated))
@@ -88,7 +93,7 @@ export function FileItem({ file }: Props){
                 <When expr={!file.favorite}>
                     <RiHeart2Line fontSize="28px" onClick={handleFavorite}/> 
                 </When>
-                <IoTrashOutline fontSize="28px"/>
+                <IoTrashOutline fontSize="28px" onClick={handleDelete}/>
             </div>
         </Container>
     )

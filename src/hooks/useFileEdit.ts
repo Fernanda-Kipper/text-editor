@@ -34,7 +34,7 @@ const fetcher = (query: string) => customFetcher<EditFileResponse>(query)
 
 const updateFile = async (id: string, query: string) => {
   await fetcher(query)
-  const { publishFile }= await customFetcher<PublishFileResponse>(generatePublishQuery(id)).then(res => res.data.data)
+  const { publishFile } = await customFetcher<PublishFileResponse>(generatePublishQuery(id)).then(res => res.data.data)
   return {
     slug: publishFile?.slug,
   }
