@@ -46,7 +46,7 @@ const loadingCircle:MotionStyle = {
 
 export function Loading(){
   return(
-    <div>
+    <div data-testid="loading">
       <motion.div
         style={loadingContainer}
         variants={loadingContainerVariants}
