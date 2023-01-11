@@ -30,10 +30,10 @@ export function FileListPage(){
             <AsideNav />
             <Content>
                 <When expr={shouldShowOnlyFav}>
-                    {favorites?.map(file => <FileItem file={file}/>)}
+                    {favorites?.map(file => <FileItem key={file.id} file={file}/>)}
                 </When>
                 <When expr={!shouldShowOnlyFav}>
-                    {files?.map(file => <FileItem file={file}/>)} 
+                    {files?.map(file => <FileItem key={file.id} file={file}/>)} 
                 </When>
             </Content>
         </PageWrapper>
