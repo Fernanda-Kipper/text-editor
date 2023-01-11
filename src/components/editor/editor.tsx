@@ -7,6 +7,7 @@ import { When } from "../when"
 import { EditorHeader } from "./editor-header"
 import { EditorPlayground } from "./editor-playground"
 import { EditorPreview } from "./editor-preview"
+import { toast } from 'react-toastify';
 
 const EditorWrapper = styled.div`
   display: flex;
@@ -21,9 +22,9 @@ const EditorWrapper = styled.div`
 `
 
 export function Editor(){
-  const slug = window.location.pathname.split('/')[2]
+  const slug = "999"
   const { setBody, setId, isPreviewMode } = useEditorContext()
-  const { data } = useFile(slug)
+  const { data, isError } = useFile(slug)
 
   useEffect(() => {
     if(!data?.body) return
@@ -34,6 +35,12 @@ export function Editor(){
     if(!data?.id) return
     setId(data.id)
   }, [slug, data?.id, setId])
+
+  useEffect(() => {
+    console.log("mudouuu")
+    console.log({isError})
+    if(isError) toast.error("Erro ao carregar arquivo.")
+  }, [isError])
 
   return (
     <EditorWrapper>
