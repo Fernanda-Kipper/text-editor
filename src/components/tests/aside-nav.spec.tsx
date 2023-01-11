@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import { BrowserRouter } from "react-router-dom";
-import router from 'react-router';
 
 import { AsideNav } from '../aside-nav';
 import { QueryClientProvider, QueryClient } from 'react-query';
@@ -29,9 +28,6 @@ describe("AsideNav", () => {
         expect(screen.getByText("New")).toBeInTheDocument();
     });
 
-    //TODO: ABORDAR RETORAÇÃO
-    // TODO: explicar o que vem do jest e o que vem da testing library
-    // TODO: explicar o for each
     it("should call navigate with correct params", () => {
         const queryClient = new QueryClient();
         render(
@@ -43,13 +39,11 @@ describe("AsideNav", () => {
         )
 
         const btn = screen.getByText("All files")
-        const inputElement = screen.getByRole("input")
 
         fireEvent.click(btn);
-        fireEvent.mouseUp(btn);
-        fireEvent.input(btn);
-        fireEvent.keyPress(inputElement, {key: "Enter"});
-        fireEvent.change(inputElement, {target: {value: '2020-05-24'}})
+
+        expect(mockNavigate).toHaveBeenCalled();
+        expect(mockNavigate).toHaveBeenCalledWith("/");
     })
 
     it.each([["All files", "/"], ["Favorites", "/favorites"]])("testings %s", (text, path) => {
