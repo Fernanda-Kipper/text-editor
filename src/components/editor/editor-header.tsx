@@ -2,10 +2,12 @@ import styled from "styled-components"
 import { GrBold, GrItalic, GrList, GrOrderedList, GrSave } from "react-icons/gr"
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdOutlineRemoveRedEye } from "react-icons/md"
 import { BsBlockquoteLeft } from "react-icons/bs"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import { When } from "../when";
 import { useEditorContext } from "../../hooks/useEditorContext";
 import { PrimaryButton } from "../buttons/primary-button";
+import { toast } from "react-toastify";
 
 const Header = styled.header`
     background-color: var(--secondary-background);
@@ -121,7 +123,7 @@ const DropdownOption = styled.button<{ hidden: boolean}>`
 `
 
 export function EditorHeader(){
-    const { saveFile, setBody, body, handlePreview } = useEditorContext()
+    const { saveFile, setBody, body, handlePreview, isErrorSavingFile } = useEditorContext()
     const [isTextOptionsOpen, setIsTextOptionsOpen] = useState(false)
 
     const handleOpen = () => {
@@ -137,7 +139,7 @@ export function EditorHeader(){
     }
 
     const getSelectionText = () => {
-        const element = document.getElementById("textarea") as HTMLTextAreaElement
+        const element = document.getElementById("textarea") as HTMLTextAreaElement;
         let startPos = element?.selectionStart;
         let endPos = element?.selectionEnd;
         let selectedText = element.value.substring(startPos, endPos);
@@ -223,6 +225,10 @@ export function EditorHeader(){
         setFocusOnTheEnd()
     }
 
+    useEffect(() => {
+        if(isErrorSavingFile) toast.error("Erro ao salvar arquivo");
+    }, [isErrorSavingFile])
+
     return(
        <Header>
            <div>
@@ -236,15 +242,15 @@ export function EditorHeader(){
                     </When>
                 </LargeButton>
             <Dropdown>
-                    <DropdownOption onClick={addHeading1} hidden={!isTextOptionsOpen}>Heading 1</DropdownOption>
-                    <DropdownOption onClick={addHeading2} hidden={!isTextOptionsOpen}>Heading 2</DropdownOption>
-                    <DropdownOption onClick={addHeading3} hidden={!isTextOptionsOpen}>Heading 3</DropdownOption>
+                    <DropdownOption data-testid="heading-1" onClick={addHeading1} hidden={!isTextOptionsOpen}>Heading 1</DropdownOption>
+                    <DropdownOption data-testid="heading-2" onClick={addHeading2} hidden={!isTextOptionsOpen}>Heading 2</DropdownOption>
+                    <DropdownOption data-testid="heading-3" onClick={addHeading3} hidden={!isTextOptionsOpen}>Heading 3</DropdownOption>
             </Dropdown>
-            <SmallButton onClick={addBold}><GrBold size="24px"/></SmallButton>
-            <SmallButton onClick={addItalic}><GrItalic size="24px"/></SmallButton>
-            <SmallButton onClick={addQuote}><BsBlockquoteLeft size="24px"/></SmallButton>
-            <SmallButton onClick={addUnorderedList}><GrList size="24px"/></SmallButton>
-            <SmallButton onClick={addOrderedList}><GrOrderedList size="24px"/></SmallButton>
+            <SmallButton data-testid="bold" onClick={addBold}><GrBold size="24px"/></SmallButton>
+            <SmallButton data-testid="italic" onClick={addItalic}><GrItalic size="24px"/></SmallButton>
+            <SmallButton data-testid="block" onClick={addQuote}><BsBlockquoteLeft size="24px"/></SmallButton>
+            <SmallButton data-testid="list" onClick={addUnorderedList}><GrList size="24px"/></SmallButton>
+            <SmallButton data-testid="order-list" onClick={addOrderedList}><GrOrderedList size="24px"/></SmallButton>
             <SmallButton onClick={handlePreview}><MdOutlineRemoveRedEye size="24px"/></SmallButton>
            </div>
            <PrimaryButton onClick={saveFile}>

@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { useEditFile } from "../hooks/useFileEdit";
 
-type EditorContextType = {
+export type EditorContextType = {
   id: string,
   title: string,
   body?: string,
@@ -10,7 +10,8 @@ type EditorContextType = {
   setBody(body: string): void
   saveFile(): void
   handlePreview(): void
-  isPreviewMode: boolean
+  isPreviewMode: boolean,
+  isErrorSavingFile: boolean
 }
 
 interface Props {
@@ -25,7 +26,7 @@ export function EditorContextProvider({ children }: Props){
   const [savedBody, setSavedBody] = useState("")
   const [currentBody, setCurrentBody] = useState("")
   const [isPreviewMode, setIsPreviewMode] = useState(false)
-  const { updateBody } = useEditFile()
+  const { updateBody, isError } = useEditFile()
 
   const saveFile = () => {
     updateBody({ id, body: currentBody })
@@ -47,7 +48,8 @@ export function EditorContextProvider({ children }: Props){
       setBody: setSavedBody,
       saveFile,
       handlePreview,
-      isPreviewMode
+      isPreviewMode,
+      isErrorSavingFile: isError
     }}
     >
       {children}
