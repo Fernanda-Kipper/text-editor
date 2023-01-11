@@ -49,6 +49,7 @@ export function EditorPlayground(){
     return(
         <EditorContainer>
             <EditorArea
+                data-testid="textarea"
                 id="textarea"
                 value={body}
                 autoFocus
