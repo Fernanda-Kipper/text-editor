@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-import { useEditorContext } from "../../hooks/useEditorContext"
-
 interface LineProps {
     line: string
     id: number
@@ -90,8 +88,6 @@ const LineUnderline = styled(LineContainer)`
 `
 
 export function Line(props : LineProps){
-    const {  } = useEditorContext()
-
     const updateLine  = (value: string, num: number) => {}
     
     const lineTypeAndValue = props.line.split(';')
