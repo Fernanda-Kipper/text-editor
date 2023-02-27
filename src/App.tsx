@@ -8,7 +8,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Router } from './router';
 
 function App() {
-	const queryClient = new QueryClient()
+	const queryClient = new QueryClient({
+		defaultOptions: {
+            queries: {
+                retry: 2
+            }
+        }
+	})
 
     return (
 		<QueryClientProvider client={queryClient}>

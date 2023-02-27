@@ -22,7 +22,7 @@ const EditorWrapper = styled.div`
 `
 
 export function Editor(){
-  const slug = "999"
+  const slug = window.location.pathname.split('/')[2]
   const { setBody, setId, isPreviewMode } = useEditorContext()
   const { data, isError } = useFile(slug)
 
@@ -37,8 +37,6 @@ export function Editor(){
   }, [slug, data?.id, setId])
 
   useEffect(() => {
-    console.log("mudouuu")
-    console.log({isError})
     if(isError) toast.error("Erro ao carregar arquivo.")
   }, [isError])
 
