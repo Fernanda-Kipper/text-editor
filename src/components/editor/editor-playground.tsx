@@ -50,6 +50,7 @@ export function EditorPlayground(){
         <EditorContainer>
             <EditorArea
                 id="textarea"
+                data-testid="textarea"
                 value={body}
                 autoFocus
                 onInput={e => setBody(e.currentTarget.value ?? "")} 
