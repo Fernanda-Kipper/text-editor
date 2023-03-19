@@ -27,7 +27,7 @@
   Built using [React JS](https://pt-br.reactjs.org/), this interface and the layout ware made from scratch by me.
 
 ### API
-  For building the server of this application, I used [GraphCMS](https://graphcms.com/) that is an CMS that allow us to build [GraphQL](https://graphql.org/) Content APIs.
+  For building the server of this application, I used [Hy Graph](https://hygraph.com/) that is an CMS that allow us to build [GraphQL](https://graphql.org/) Content APIs.
 
 <h2 id="started">🚀 Getting Started</h2>
 
@@ -46,6 +46,19 @@ npm install
 <h4>Environment Variables</h4>
 
 In the root of this project, create a `.env` file with the keys and values located on `.env.example`
+
+To get these values you need to create an Account on [HyGraph](https://app.hygraph.com/) and then:
+
+- Create a new project
+- Inside your project, go to "Project Settings"
+- Inside settings, access the tab "API Access"
+- Add all permisions
+
+<img width="400" alt="Captura de Tela 2023-03-19 às 14 54 48" src="https://user-images.githubusercontent.com/61896274/226196900-5542dd52-0033-40fc-b17b-dbcb8cf9e790.png">
+
+- Get your **Content API URL** and use as `process.env.REACT_APP_CONTENT_API_URL`
+- Generate an Permanent Auth Tokens and use as `process.env.REACT_APP_CONTENT_API_TOKEN`
+
 
 <h4>Start server</h4>
 
