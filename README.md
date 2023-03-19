@@ -57,8 +57,15 @@ To get these values you need to create an Account on [HyGraph](https://app.hygra
 
 <img width="400" alt="Captura de Tela 2023-03-19 às 14 54 48" src="https://user-images.githubusercontent.com/61896274/226196900-5542dd52-0033-40fc-b17b-dbcb8cf9e790.png">
 
-- Get your **Content API URL** and use as `process.env.REACT_APP_CONTENT_API_URL`
+- Copy your **Content API URL** and use as `process.env.REACT_APP_CONTENT_API_URL`
+
+<img width="393" alt="Captura de Tela 2023-03-19 às 15 03 58" src="https://user-images.githubusercontent.com/61896274/226197693-4ec3bb2e-12b3-44b5-8f69-bfa7256760eb.png">
+
+
 - Generate an Permanent Auth Tokens and use as `process.env.REACT_APP_CONTENT_API_TOKEN`
+
+<img width="371" alt="Captura de Tela 2023-03-19 às 15 04 32" src="https://user-images.githubusercontent.com/61896274/226197729-924da132-490d-4f6d-84bd-201fb54fa07b.png">
+
 
 
 <h4>Start server</h4>
