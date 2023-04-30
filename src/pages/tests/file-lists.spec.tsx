@@ -74,7 +74,7 @@ describe("FileList", () => {
 
     it("should show favorites files when is favorite pathname", () => {
         useLocationSpy.mockReturnValue({
-            pathname: "/favorites",
+            pathname: "/",
             state: undefined,
             key: "",
             search: "",
