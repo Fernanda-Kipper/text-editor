@@ -19,6 +19,8 @@ export function FileListPage(){
 
     const shouldShowOnlyFav = pathname.includes('favorites')
 
+    const filesNoun = files?.length ?  'None file' : `${files?.length} files`
+
     if(isLoading) return (
         <PageWrapper align="center" justify="center">
             <Loading />
