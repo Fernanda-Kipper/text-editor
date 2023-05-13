@@ -1,19 +1,47 @@
-name: Continuos Integration
-
-on: pull_request
+on:
+  pull_request:
+    types: [opened]
 
 jobs:
-  continuos-integration:
+  create-unit-test:
+    name: Create unit test
     runs-on: ubuntu-latest
-
+    permissions:
+      issues: write
+      contents: read
     steps:
       - uses: actions/checkout@v3
-      - name: Using Node.js
-        uses: actions/setup-node@v2
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35  
         with:
-          node-version: 16.
-      - name: run install, build and test
+          separator: ','
+
+      - name: Get final diff
+        id: get-final-diff
+        run: |
+          finalDiff=$(git diff ${{ github.event.pull_request.base.sha }}..${{ github.sha }}) 
+          finalDiff="${finalDiff//'%'/'%25'}"
+          finalDiff="${finalDiff//$'\n'/'%0A'}"
+          finalDiff="${finalDiff//$'\r'/'%0D'}"
+          echo "final_diff=$finalDiff" >> $GITHUB_OUTPUT 
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies and run tests
         run: |
           npm install
           npm run build 
           npm run test
+        
+      - name: Unit Test Creation with GPTest
+        uses: UseGPTest/GPRobot@v1.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Get the Github Token from repository secrets
+          rapidapi_key: ${{ secrets.RAPIDAPI_KEY}} # Your RapidAPI Key from https://rapidapi.com/LeoUpperThrower4/api/usegptest1/pricing
+          changed_files: ${{ steps.changed-files.outputs.all_changed_files }}
+          final_diff: ${{ steps.get-final-diff.outputs.final_diff }}
