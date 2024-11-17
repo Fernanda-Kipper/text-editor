@@ -17,4 +17,4 @@ jobs:
           npm install
           npm run build 
           npm run test
-          echo "Done!"
+          echo "Done-1234"
