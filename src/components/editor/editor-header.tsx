@@ -77,7 +77,7 @@ const LargeButton = styled.button`
 
     p {
         font-size: 14px;
-        margin-right: 8px;
+        margin-right: 8px; 
     }
 `
 
